@@ -5,9 +5,10 @@
 */
 
 def call(){
-  
+  	parameters{choice(name: 'tareas', choices:['Build & Test',''], description:'Parametros de stages a elegir')}
 	stage('Build & Test'){
 		def requestedStage= params.tareas.split(';').toList();
+
 		env.Tarea='Build & Test'
 		if(requestedStage.contains(env.Tarea)||params.tareas==''){
 			bat './gradlew clean build'
