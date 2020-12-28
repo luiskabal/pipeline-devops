@@ -4,7 +4,7 @@ pipeline{
 	agent any
 	parameters{
 		choice(name: 'buildtool', choices:['gradle','maven'], description:'Parametros de herramientas a elegir')
-		text(name: 'tareas', defaultValue: '', description: 'parametros de stages a elegir, separados por ';'')
+		text(name: 'tareas', defaultValue: '', description: 'parametros de stages a elegir, separados por ";"')
 
 	}
 
