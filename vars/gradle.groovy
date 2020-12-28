@@ -7,28 +7,35 @@
 def call(){
   
 	stage('Build & Test'){
+		def requestedStage= params.tareas.split(';').toList();
 		env.Tarea='Build & Test'
-		bat './gradlew clean build'
-		
+		if(requestedStage.contains(env.Tarea)||params.tareas==''){
+			bat './gradlew clean build'
+			println("BUILD EJECUTA2")
+		}else{
+		println("NOOOOOOOOOOO")
 		}
 		
-	stage('Sonar'){
+		
+		}
+		/*
+		stage('Sonar'){
 		env.Tarea='Sonar'
 					def scannerHome = tool 'sonar';
 					withSonarQubeEnv('sonar') {
 						bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build"
 					}
 		}
-	stage('Run'){
+		stage('Run'){
 			env.Tarea='Run'
 			bat 'start gradlew bootRun'
 			sleep 7
 		}
-	stage('Test'){
+		stage('Test'){
 		env.Tarea='Test'
 					bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
 		}
-	stage('Nexus Upload'){
+		stage('Nexus Upload'){
 		env.Tarea='Nexus Upload'
 						nexusArtifactUploader(
 						nexusVersion: 'nexus3',
@@ -46,6 +53,8 @@ def call(){
 						]
 						)
 		}
+		*/	
+	
 }
 
 return this;
