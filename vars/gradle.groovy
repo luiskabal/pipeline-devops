@@ -41,7 +41,7 @@ def call(){
 						artifacts: [
 						[artifactId: 'DevOpsUsach2020',
 						classifier: '',
-						file: 'C:/Users/luisv/OneDrive/Diplomado/TALLER14/ejemplo-gradle/build/DevOpsUsach2020-0.0.1.jar',
+						file: 'C:/Users/luisv/.jenkins/workspace/ejemplo-gradle-LIBRARY/build/DevOpsUsach2020-0.0.1.jar',
 						type: 'jar']
 						]
 						)
