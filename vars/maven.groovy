@@ -10,12 +10,13 @@ def call(){
 		env.TAREA='Compile'
 
 		try {
-				if(requestedStage.contains(env.Tarea)||params.tareas==''){
-			bat './mvnw.cmd clean compile -e'
-			println(env.Tarea+" Ejecutado")
-		}else{
-		error("Error ejecutando: "+ env.Tarea)
-		}
+			if(requestedStage.contains(env.Tarea)||params.tareas==''){
+				bat './mvnw.cmd clean compile -e'
+				println(env.Tarea+" Ejecutado")
+			}
+			else{
+				error("Error ejecutando: "+ env.Tarea)
+			}
 		}
 		catch(Exception e) {
 			 	 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
@@ -28,19 +29,19 @@ def call(){
 	}
 	 stage('Unit Test'){
 	 env.TAREA='Unit Test'
-	 try {
-	 	 	  if(requestedStage.contains(env.Tarea)||params.tareas==''){
+		try {
+			 	  if(requestedStage.contains(env.Tarea)||params.tareas==''){
 		bat './mvnw.cmd clean test -e'
 			println(env.Tarea+" Ejecutado")
-	 }
-	 else{
+		}
+		else{
 		error("Error ejecutando: "+ env.Tarea)
-	}
-	 	 }
+		}
+ 	 }
 	 		catch(Exception e) {
 			 	 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh "exit 1"
-                }
+	                sh "exit 1"
+	            }
 			}
 		
 		}
@@ -50,13 +51,13 @@ def call(){
 
 	 stage('Jar'){
 	 	 env.TAREA='Jar'
-	 	 	 try {
-	 	 		 if(requestedStage.contains(env.Tarea)||params.tareas==''){
+		try {
+			 if(requestedStage.contains(env.Tarea)||params.tareas==''){
 			bat './mvnw.cmd clean package -e'
-				println(env.Tarea+" Ejecutado")
-	 	 }else{
-		error("Error ejecutando: "+ env.Tarea)
-	 	 }
+			println(env.Tarea+" Ejecutado")
+			}else{
+			error("Error ejecutando: "+ env.Tarea)
+		 	 }
 	 	 }
 	 	catch(Exception e) {
 			 	 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
@@ -70,14 +71,14 @@ def call(){
 	}
 	stage('Sonar'){
 		env.TAREA='Sonar'
-			 try {
-	 	 	 if(requestedStage.contains(env.Tarea)||params.tareas==''){
-		 		def scannerHome = tool 'sonar';
+		try {
+		if(requestedStage.contains(env.Tarea)||params.tareas==''){
+		def scannerHome = tool 'sonar';
 		withSonarQubeEnv('sonar') {
-			bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build"
-				println(env.Tarea+" Ejecutado")
+		bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build"
+		println(env.Tarea+" Ejecutado")
 		}
-		 }else{
+		else{
 		error("Error ejecutando: "+ env.Tarea)
 	 	 }
 	 	 }
