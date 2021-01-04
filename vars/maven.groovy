@@ -18,10 +18,8 @@ def call(){
 		}
 		}
 		catch(Exception e) {
-		
-				catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh "exit 1"
-                }
+				error("Error ejecutando: "+ env.Tarea)
+				sh "exit 1"
 		}
 		
 	}
