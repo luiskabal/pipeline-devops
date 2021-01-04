@@ -12,7 +12,7 @@ def call(){
 			bat './mvnw.cmd clean compile -e'
 			println(env.Tarea+" Ejecutado")
 		}else{
-		println("Error ejecutando: "+ env.Tarea)
+		error("Error ejecutando: "+ env.Tarea)
 		}
 		
 		
@@ -24,7 +24,7 @@ def call(){
 			println(env.Tarea+" Ejecutado")
 	 }
 	 else{
-		println("Error ejecutando: "+ env.Tarea)
+		error("Error ejecutando: "+ env.Tarea)
 	}
 		
 	}
@@ -35,7 +35,7 @@ def call(){
 			bat './mvnw.cmd clean package -e'
 				println(env.Tarea+" Ejecutado")
 	 	 }else{
-		println("Error ejecutando: "+ env.Tarea)
+		error("Error ejecutando: "+ env.Tarea)
 	 	 }
 		
 	}
@@ -48,7 +48,7 @@ def call(){
 				println(env.Tarea+" Ejecutado")
 		}
 		 }else{
-		println("Error ejecutando: "+ env.Tarea)
+		error("Error ejecutando: "+ env.Tarea)
 	 	 }
 	
 	}
@@ -72,7 +72,7 @@ def call(){
 		]
 		)
 		 }else{
-		println("Error ejecutando: "+ env.Tarea)
+		error("Error ejecutando: "+ env.Tarea)
 	 	 }
 	
 	}

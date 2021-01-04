@@ -13,7 +13,7 @@ def call(){
 			bat './gradlew clean build'
 			println(env.Tarea+" Ejecutado")
 		}else{
-		println("Error ejecutando: "+ env.Tarea)
+		error("Error ejecutando: "+ env.Tarea)
 		}
 		
 		
@@ -28,7 +28,7 @@ def call(){
 					println(env.Tarea+" Ejecutado")
 			}	
 		}else{
-		println("Error ejecutando: "+ env.Tarea)
+		error("Error ejecutando: "+ env.Tarea)
 		}
 			
 		}
@@ -40,7 +40,7 @@ def call(){
 				sleep 7
 				println(env.Tarea+" Ejecutado")
 			}else{
-				println("Error ejecutando: "+ env.Tarea)
+				error("Error ejecutando: "+ env.Tarea)
 			}
 		
 		}
@@ -52,7 +52,7 @@ def call(){
 					println(env.Tarea+" Ejecutado")
 			}
 			else{
-				println("Error ejecutando: "+ env.Tarea)
+				error("Error ejecutando: "+ env.Tarea)
 			}
 	
 		}
@@ -76,7 +76,7 @@ def call(){
 					)
 				println(env.Tarea+" Ejecutado")
 			}else{
-				println("Error ejecutando: "+ env.Tarea)
+				error("Error ejecutando: "+ env.Tarea)
 			}
 						
 		}	
