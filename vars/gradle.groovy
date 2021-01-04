@@ -19,6 +19,7 @@ def call(){
 		}	
 		}
 		catch(Exception e) {
+			bat ''
 			println("Error ejecutando: "+ env.Tarea+" "+ e)
 		}
 		
