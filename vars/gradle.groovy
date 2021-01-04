@@ -72,7 +72,7 @@ def call(){
 		
 		}
 		
-		}
+		
 		stage('Test'){
 			env.Tarea='Test'
 
@@ -95,7 +95,7 @@ def call(){
 		}
 			
 	
-		}
+		
 		stage('Nexus Upload'){
 		env.Tarea='Nexus Upload'
 
@@ -128,9 +128,6 @@ def call(){
 			}
 		
 		}
-	
-						
-		}	
 	
 }
 
