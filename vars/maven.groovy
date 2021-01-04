@@ -8,40 +8,61 @@ def call(){
 	def requestedStage = params.tareas.split(';').toList();
 	stage('Compile'){
 		env.TAREA='Compile'
-		if(requestedStage.contains(env.Tarea)||params.tareas==''){
+
+		try {
+				if(requestedStage.contains(env.Tarea)||params.tareas==''){
 			bat './mvnw.cmd clean compile -e'
 			println(env.Tarea+" Ejecutado")
 		}else{
 		error("Error ejecutando: "+ env.Tarea)
 		}
+		}
+		catch(Exception e) {
+				println("Error ejecutando: "+ env.Tarea+" "+ e )
+		}
+		
+	
 		
 		
 	}
 	 stage('Unit Test'){
 	 env.TAREA='Unit Test'
-	 if(requestedStage.contains(env.Tarea)||params.tareas==''){
+	 try {
+	 	 	  if(requestedStage.contains(env.Tarea)||params.tareas==''){
 		bat './mvnw.cmd clean test -e'
 			println(env.Tarea+" Ejecutado")
 	 }
 	 else{
 		error("Error ejecutando: "+ env.Tarea)
 	}
+	 	 }
+	 	 catch(Exception e) {
+	 	 		println("Error ejecutando: "+ env.Tarea+" "+ e )
+	 	 }
+	
 		
 	}
 
 	 stage('Jar'){
 	 	 env.TAREA='Jar'
-	 	 if(requestedStage.contains(env.Tarea)||params.tareas==''){
+	 	 	 try {
+	 	 		 if(requestedStage.contains(env.Tarea)||params.tareas==''){
 			bat './mvnw.cmd clean package -e'
 				println(env.Tarea+" Ejecutado")
 	 	 }else{
 		error("Error ejecutando: "+ env.Tarea)
 	 	 }
+	 	 }
+	 	 catch(Exception e) {
+	 	 		println("Error ejecutando: "+ env.Tarea+" "+ e )
+	 	 }
+	 
 		
 	}
 	stage('Sonar'){
 		env.TAREA='Sonar'
-		 if(requestedStage.contains(env.Tarea)||params.tareas==''){
+			 try {
+	 	 	 if(requestedStage.contains(env.Tarea)||params.tareas==''){
 		 		def scannerHome = tool 'sonar';
 		withSonarQubeEnv('sonar') {
 			bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build"
@@ -50,11 +71,17 @@ def call(){
 		 }else{
 		error("Error ejecutando: "+ env.Tarea)
 	 	 }
+	 	 }
+	 	 catch(Exception e) {
+	 	 		println("Error ejecutando: "+ env.Tarea+" "+ e )
+	 	 }
+		
 	
 	}
 	stage('Nexus Upload'){
 		env.TAREA='Nexus Upload'
-		 if(requestedStage.contains(env.Tarea)||params.tareas==''){
+			 try {
+	 	 		 if(requestedStage.contains(env.Tarea)||params.tareas==''){
  		println(env.Tarea+" Ejecutado")
  		nexusArtifactUploader(
 		nexusVersion: 'nexus3',
@@ -74,6 +101,11 @@ def call(){
 		 }else{
 		error("Error ejecutando: "+ env.Tarea)
 	 	 }
+	 	 }
+	 	 catch(Exception e) {
+	 	 		println("Error ejecutando: "+ env.Tarea+" "+ e )
+	 	 }
+	
 	
 	}
 
