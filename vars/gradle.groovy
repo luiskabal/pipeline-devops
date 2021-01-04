@@ -19,9 +19,9 @@ def call(){
 		}	
 		}
 		catch(Exception e) {
-				   catchError {
-		            sh "exit 1"
-		        }
+			 	 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh "exit 1"
+                }
 			}
 		
 		}
