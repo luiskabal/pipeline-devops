@@ -5,56 +5,77 @@
 */
 
 def call(){
- 
-	stage('Build & Test'){
-		def requestedStage= params.tareas.split(';').toList();
+ 	def requestedStage = params.tareas.split(';').toList();
 
+	stage('Build & Test') {
 		env.Tarea='Build & Test'
 		if(requestedStage.contains(env.Tarea)||params.tareas==''){
 			bat './gradlew clean build'
 			println("BUILD EJECUTA2")
 		}else{
-		println("NOOOOOOOOOOO")
+		println("Error ejecutando: "+ env.Tarea)
 		}
 		
 		
 		}
-		/*
+		
 		stage('Sonar'){
 		env.Tarea='Sonar'
-					def scannerHome = tool 'sonar';
-					withSonarQubeEnv('sonar') {
-						bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build"
-					}
+		if(requestedStage.contains(env.Tarea)||params.tareas==''){
+		def scannerHome = tool 'sonar';
+			withSonarQubeEnv('sonar') {
+				bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build"
+			}	
+		}else{
+		println("Error ejecutando: "+ env.Tarea)
+		}
+			
 		}
 		stage('Run'){
 			env.Tarea='Run'
-			bat 'start gradlew bootRun'
-			sleep 7
+			if(requestedStage.contains(env.Tarea)||params.tareas==''){
+				
+				bat 'start gradlew bootRun'
+				sleep 7
+			}else{
+				println("Error ejecutando: "+ env.Tarea)
+			}
+		
 		}
 		stage('Test'){
-		env.Tarea='Test'
-					bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
+			env.Tarea='Test'
+			if(requestedStage.contains(env.Tarea)||params.tareas==''){
+				env.Tarea='Test'
+				bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
+			}
+			else{
+				println("Error ejecutando: "+ env.Tarea)
+			}
+	
 		}
 		stage('Nexus Upload'){
 		env.Tarea='Nexus Upload'
-						nexusArtifactUploader(
-						nexusVersion: 'nexus3',
-						protocol: 'http',
-						nexusUrl: 'http://localhost:8081/',
-						groupId: 'com.devopsusach2020',
-						version: '0.0.1',
-						repository: 'test-nexus',
-						credentialsId: 'nexus',
-						artifacts: [
-						[artifactId: 'DevOpsUsach2020',
-						classifier: '',
-						file: 'C:/Users/luisv/.jenkins/workspace/ejemplo-gradle-LIBRARY/build/libs/DevOpsUsach2020-0.0.1.jar',
-						type: 'jar']
-						]
-						)
-		}
-		*/	
+		if(requestedStage.contains(env.Tarea)||params.tareas==''){
+			nexusArtifactUploader(
+					nexusVersion: 'nexus3',
+					protocol: 'http',
+					nexusUrl: 'http://localhost:8081/',
+					groupId: 'com.devopsusach2020',
+					version: '0.0.1',
+					repository: 'test-nexus',
+					credentialsId: 'nexus',
+					artifacts: [
+					[artifactId: 'DevOpsUsach2020',
+					classifier: '',
+					file: 'C:/Users/luisv/.jenkins/workspace/ejemplo-gradle-LIBRARY/build/libs/DevOpsUsach2020-0.0.1.jar',
+					type: 'jar']
+					]
+					)
+			}else{
+				println("Error ejecutando: "+ env.Tarea)
+			}
+						
+		}	
 	
 }
 
