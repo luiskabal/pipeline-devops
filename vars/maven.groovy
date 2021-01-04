@@ -5,7 +5,8 @@
 */
 
 def call(){
-stage('Compile'){
+	def requestedStage = params.tareas.split(';').toList();
+	stage('Compile'){
 		env.TAREA='Compile'
 		if(requestedStage.contains(env.Tarea)||params.tareas==''){
 			bat './mvnw.cmd clean compile -e'
