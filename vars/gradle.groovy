@@ -49,7 +49,7 @@ def call(){
 	
 		
 			
-		}
+		
 		stage('Run'){
 			env.Tarea='Run'
 
@@ -129,7 +129,7 @@ def call(){
 		
 		}
 	
-}
+
 }
 
 return this;
