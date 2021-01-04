@@ -18,8 +18,9 @@ def call(){
 		}
 		}
 		catch(Exception e) {
-				error("Error ejecutando: "+ env.Tarea)
-				sh "exit 1"
+			   catchError {
+                sh "exit 1"
+            }
 		}
 		
 	}
