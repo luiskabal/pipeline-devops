@@ -18,9 +18,11 @@ def call(){
 		}
 		}
 		catch(Exception e) {
-			   catchError {
-                sh "exit 1"
-            }
+			 	 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh "exit 1"
+                }
+			}
+		
 		}
 		
 	}
@@ -35,9 +37,13 @@ def call(){
 		error("Error ejecutando: "+ env.Tarea)
 	}
 	 	 }
-	 	 catch(Exception e) {
-	 	 		error("Error ejecutando: "+ env.Tarea+" "+ e )
-	 	 }
+	 		catch(Exception e) {
+			 	 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh "exit 1"
+                }
+			}
+		
+		}
 	
 		
 	}
@@ -52,9 +58,13 @@ def call(){
 		error("Error ejecutando: "+ env.Tarea)
 	 	 }
 	 	 }
-	 	 catch(Exception e) {
-	 	 		error("Error ejecutando: "+ env.Tarea+" "+ e )
-	 	 }
+	 	catch(Exception e) {
+			 	 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh "exit 1"
+                }
+			}
+		
+		}
 	 
 		
 	}
@@ -71,9 +81,13 @@ def call(){
 		error("Error ejecutando: "+ env.Tarea)
 	 	 }
 	 	 }
-	 	 catch(Exception e) {
-	 	 		error("Error ejecutando: "+ env.Tarea+" "+ e )
-	 	 }
+		catch(Exception e) {
+			 	 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh "exit 1"
+                }
+			}
+		
+		}
 		
 	
 	}
@@ -101,9 +115,13 @@ def call(){
 		error("Error ejecutando: "+ env.Tarea)
 	 	 }
 	 	 }
-	 	 catch(Exception e) {
-	 	 		error("Error ejecutando: "+ env.Tarea+" "+ e )
-	 	 }
+		catch(Exception e) {
+			 	 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh "exit 1"
+                }
+			}
+		
+		}
 	
 	
 	}
