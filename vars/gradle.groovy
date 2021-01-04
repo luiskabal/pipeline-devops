@@ -11,7 +11,7 @@ def call(){
 		env.Tarea='Build & Test'
 		if(requestedStage.contains(env.Tarea)||params.tareas==''){
 			bat './gradlew clean build'
-			println("BUILD EJECUTA2")
+			println(env.Tarea+" Ejecutado")
 		}else{
 		println("Error ejecutando: "+ env.Tarea)
 		}
@@ -25,6 +25,7 @@ def call(){
 		def scannerHome = tool 'sonar';
 			withSonarQubeEnv('sonar') {
 				bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build"
+					println(env.Tarea+" Ejecutado")
 			}	
 		}else{
 		println("Error ejecutando: "+ env.Tarea)
@@ -37,6 +38,7 @@ def call(){
 				
 				bat 'start gradlew bootRun'
 				sleep 7
+				println(env.Tarea+" Ejecutado")
 			}else{
 				println("Error ejecutando: "+ env.Tarea)
 			}
@@ -47,6 +49,7 @@ def call(){
 			if(requestedStage.contains(env.Tarea)||params.tareas==''){
 				env.Tarea='Test'
 				bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
+					println(env.Tarea+" Ejecutado")
 			}
 			else{
 				println("Error ejecutando: "+ env.Tarea)
@@ -71,6 +74,7 @@ def call(){
 					type: 'jar']
 					]
 					)
+				println(env.Tarea+" Ejecutado")
 			}else{
 				println("Error ejecutando: "+ env.Tarea)
 			}
