@@ -18,7 +18,7 @@ def call(){
 		}
 		}
 		catch(Exception e) {
-				println("Error ejecutando: "+ env.Tarea+" "+ e )
+				error("Error ejecutando: "+ env.Tarea+" "+ e )
 		}
 		
 	
@@ -37,7 +37,7 @@ def call(){
 	}
 	 	 }
 	 	 catch(Exception e) {
-	 	 		println("Error ejecutando: "+ env.Tarea+" "+ e )
+	 	 		error("Error ejecutando: "+ env.Tarea+" "+ e )
 	 	 }
 	
 		
@@ -54,7 +54,7 @@ def call(){
 	 	 }
 	 	 }
 	 	 catch(Exception e) {
-	 	 		println("Error ejecutando: "+ env.Tarea+" "+ e )
+	 	 		error("Error ejecutando: "+ env.Tarea+" "+ e )
 	 	 }
 	 
 		
@@ -73,7 +73,7 @@ def call(){
 	 	 }
 	 	 }
 	 	 catch(Exception e) {
-	 	 		println("Error ejecutando: "+ env.Tarea+" "+ e )
+	 	 		error("Error ejecutando: "+ env.Tarea+" "+ e )
 	 	 }
 		
 	
@@ -103,7 +103,7 @@ def call(){
 	 	 }
 	 	 }
 	 	 catch(Exception e) {
-	 	 		println("Error ejecutando: "+ env.Tarea+" "+ e )
+	 	 		error("Error ejecutando: "+ env.Tarea+" "+ e )
 	 	 }
 	
 	

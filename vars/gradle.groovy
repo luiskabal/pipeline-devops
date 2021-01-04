@@ -19,8 +19,8 @@ def call(){
 		}	
 		}
 		catch(Exception e) {
-			bat 'bat'
-			println("Error ejecutando: "+ env.Tarea+" "+ e)
+			
+			error("Error ejecutando: "+ env.Tarea+" "+ e)
 		}
 		
 		}
@@ -39,7 +39,7 @@ def call(){
 		}	
 		}
 		catch(Exception e) {
-				println("Error ejecutando: "+ env.Tarea+" "+ e)
+				error("Error ejecutando: "+ env.Tarea+" "+ e)
 		}
 	
 		
@@ -60,7 +60,7 @@ def call(){
 			}
 		}
 		catch(Exception e) {
-				println("Error ejecutando: "+ env.Tarea+" "+ e)
+				error("Error ejecutando: "+ env.Tarea+" "+ e)
 		}
 		
 		}
@@ -74,11 +74,11 @@ def call(){
 					println(env.Tarea+" Ejecutado")
 			}
 			else{
-				println("Error ejecutando: "+ env.Tarea)
+				error("Error ejecutando: "+ env.Tarea)
 			}
 		}
 		catch(Exception e) {
-				println("Error ejecutando: "+ env.Tarea+" "+ e)
+				error("Error ejecutando: "+ env.Tarea+" "+ e)
 		}
 			
 	
@@ -109,7 +109,7 @@ def call(){
 			}
 		}
 		catch(Exception e) {
-				println("Error ejecutando: "+ env.Tarea+" "+ e)
+				error("Error ejecutando: "+ env.Tarea+" "+ e)
 		}
 	
 						
