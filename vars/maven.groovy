@@ -21,6 +21,7 @@ def call(){
 	 env.TAREA='Unit Test'
 	 if(requestedStage.contains(env.Tarea)||params.tareas==''){
 		bat './mvnw.cmd clean test -e'
+			println(env.Tarea+" Ejecutado")
 	 }
 	 else{
 		println("Error ejecutando: "+ env.Tarea)
@@ -32,6 +33,7 @@ def call(){
 	 	 env.TAREA='Jar'
 	 	 if(requestedStage.contains(env.Tarea)||params.tareas==''){
 			bat './mvnw.cmd clean package -e'
+				println(env.Tarea+" Ejecutado")
 	 	 }else{
 		println("Error ejecutando: "+ env.Tarea)
 	 	 }
@@ -43,6 +45,7 @@ def call(){
 		 		def scannerHome = tool 'sonar';
 		withSonarQubeEnv('sonar') {
 			bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build"
+				println(env.Tarea+" Ejecutado")
 		}
 		 }else{
 		println("Error ejecutando: "+ env.Tarea)
@@ -52,7 +55,8 @@ def call(){
 	stage('Nexus Upload'){
 		env.TAREA='Nexus Upload'
 		 if(requestedStage.contains(env.Tarea)||params.tareas==''){
-		 		nexusArtifactUploader(
+ 		println(env.Tarea+" Ejecutado")
+ 		nexusArtifactUploader(
 		nexusVersion: 'nexus3',
 		protocol: 'http',
 		nexusUrl: 'http://localhost:8081/',
