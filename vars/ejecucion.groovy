@@ -11,6 +11,7 @@ pipeline{
 			stage('Pipeline'){
 				steps{
 					script{
+					bat 'set'
 					if(params.buildtool == 'gradle' ){
 					gradle.call();
 					}else{
