@@ -11,8 +11,9 @@ pipeline{
 			stage('Pipeline'){
 				steps{
 					script{
-					figlet 'palabra'
+					figlet env.BRANCH_NAME
 					figlet params.buildtool	
+					figlet BRANCH_NAME
 					bat 'set'
 					if(params.buildtool == 'gradle' ){
 					gradle.call();
