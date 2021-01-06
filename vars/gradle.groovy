@@ -43,10 +43,7 @@ def runJar() {
     println(" Ejecutado")
 }
 
-def rest() {
-    bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
-    println(" Ejecutado")
-}
+
 def downloadNexus(){
 
     bat 'curl -X GET -u admin:Mortal2112 http://localhost:8081/repository/test-nexus/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"'
@@ -56,6 +53,11 @@ def runDownload() {
     figlet 'runDownloadedJar'
     bat "start gradlew bootRun &"
     sleep 7
+}
+
+def rest() {
+    bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
+    println(" Ejecutado")
 }
 
 def nexusCI() {
@@ -82,6 +84,7 @@ def nexusCI() {
 
 def nexusCD() {
 def jobName=JOB_NAME.replaceAll("/","_")
+figlet jobName
 
        nexusArtifactUploader(
             nexusVersion: 'nexus3',
@@ -94,7 +97,7 @@ def jobName=JOB_NAME.replaceAll("/","_")
             artifacts: [
             [artifactId: 'DevOpsUsach2020',
             classifier: '',
-            file: 'C:/Users/luisv/.jenkins/workspace/'+jobName+'/build/libs/DevOpsUsach2020-0.0.1.jar',
+            file: 'C:/Users/luisv/.jenkins/workspace/ci-cd/pipeline-cd/DevOpsUsach2020-0.0.1.jar',
             type: 'jar']
             ]
             )
