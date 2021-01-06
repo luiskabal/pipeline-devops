@@ -60,7 +60,7 @@ def nexusCI() {
             protocol: 'http',
             nexusUrl: 'localhost:8081',
             groupId: 'com.devopsusach2020',
-            version: '0.0.1',
+            version: '0.0.1-'+GIT_BRANCH,
             repository: 'test-nexus',
             credentialsId: 'nexus',
             artifacts: [
