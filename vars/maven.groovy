@@ -53,7 +53,7 @@ def downloadNexus(){
 
 def runDownload() {
     figlet 'runDownloadedJar'
-    sh './mvnw.cmd clean package -e'
+     bat './mvnw.cmd clean package -e' 
     sleep 7
 }
 
