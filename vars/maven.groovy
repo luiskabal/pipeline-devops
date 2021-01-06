@@ -101,7 +101,7 @@ def nexusCI() {
             artifacts: [
             [artifactId: 'DevOpsUsach2020',
             classifier: '',
-            file: 'C:/Users/luisv/.jenkins/workspace/ci-cd/pipeline-cd/DevOpsUsach2020-0.0.1.jar',
+            file: 'C:/Users/luisv/.jenkins/workspace/ci-cd/pipeline-cd/DevOpsUsach2020-0.0.1-develop.jar',
             type: 'jar']
             ]
             )
