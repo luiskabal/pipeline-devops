@@ -54,7 +54,7 @@ def downloadNexus(){
 
 def runDownload() {
     figlet 'runDownloadedJar'
-    bat 'javaw -jar DevOpsUsach2020-0.0.1.jar &'
+    bat "start gradlew bootRun &"
     sleep 7
 }
 
