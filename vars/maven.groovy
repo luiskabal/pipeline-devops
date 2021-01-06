@@ -53,12 +53,12 @@ def downloadNexus(){
 
 def runDownload() {
     figlet 'runDownloadedJar'
-     bat './mvnw.cmd clean package -e' 
+     bat 'javaw -jar DevOpsUsach2020-0.0.1.jar &' 
     sleep 7
 }
 def rest() {
     figlet "rest"
-    bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
+    bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing" 
     println(" Ejecutado")
 }
 
