@@ -35,7 +35,7 @@ def usedPipeline(type,pipelineJob){
     }else{
         figlet 'CI';
         if(type.contains("maven")){
-             usedStages=['compile','unitTest','Jar','Sonar','nexusCI','nexusCD']
+             usedStages=['compile','unitTest','Jar','Sonar','nexusCI']
         }else{
             usedStages=['buildAndTest','sonar','runJar','rest','nexusCI']
         }

@@ -10,7 +10,7 @@ def call(String type, String chosenStages, String jobName){
     figlet type   
     branch = jobName
     def utils = new test.UtilMethods()    
-    def stages = utils.getValidatedStages('maven',chosenStages, jobName)
+    def stages = utils.getValidatedStages(type,chosenStages, jobName)
     stages.each{
         stage(it){
             try {
@@ -25,15 +25,19 @@ def call(String type, String chosenStages, String jobName){
 }
 
 def compile(){
+     figlet "compile"
 bat './mvnw.cmd clean compile -e'
 }
 def unitTest(){
+    figlet "unitTest"
    bat './mvnw.cmd clean test -e' 
 }
 def Jar(){
+        figlet "Jar"
    bat './mvnw.cmd clean package -e' 
 }
 def Sonar(){
+        figlet "Sonar"
     def scannerHome = tool 'sonar';
     withSonarQubeEnv('sonar') {
     bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build"
@@ -42,6 +46,7 @@ def Sonar(){
  
 }
 def nexusCI() {
+        figlet "nexusCI"
     def jobName=JOB_NAME.replaceAll("/","_")
 
        nexusArtifactUploader(
@@ -62,8 +67,9 @@ def nexusCI() {
         println(" Ejecutado")
 }
 
-def nexusCD() {
-def jobName=JOB_NAME.replaceAll("/","_")
+    def nexusCD() {
+      figlet "nexusCD"
+    def jobName=JOB_NAME.replaceAll("/","_")
 
        nexusArtifactUploader(
             nexusVersion: 'nexus3',
@@ -76,7 +82,7 @@ def jobName=JOB_NAME.replaceAll("/","_")
             artifacts: [
             [artifactId: 'DevOpsUsach2020',
             classifier: '',
-            file: 'C:/Users/luisv/.jenkins/workspace/'+jobName+'/build/libs/DevOpsUsach2020-0.0.1.jar',
+            file: 'C:/Users/luisv/.jenkins/workspace/ci-cd/pipeline-cd/DevOpsUsach2020-0.0.1.jar',
             type: 'jar']
             ]
             )

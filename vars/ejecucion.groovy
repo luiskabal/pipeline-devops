@@ -12,10 +12,6 @@ def call() {
             stage('Pipeline') {
                 steps {
                     script {
-                        figlet params.CHOICE
-                        figlet 'Variables de Entorno'
-                        
-                        bat 'set'
                         def pipelineJob=GIT_BRANCH
                         figlet pipelineJob   
                         if (params.CHOICE == 'gradle')
@@ -24,7 +20,7 @@ def call() {
                         }
                         else
                         {
-                            maven "${params.stages}"
+                            maven.call(params.CHOICE,params.stages, pipelineJob)
                         }
                     }
                 }
