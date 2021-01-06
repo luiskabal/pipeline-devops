@@ -54,7 +54,7 @@ def downloadNexus(){
 
 def runDownload() {
     figlet 'runDownloadedJar'
-    bat 'nohup java -jar DevOpsUsach2020-0.0.1-'+GIT_BRANCH+'.jar &'
+    sh 'nohup java -jar DevOpsUsach2020-0.0.1.jar &'
     sleep 20
 }
 
