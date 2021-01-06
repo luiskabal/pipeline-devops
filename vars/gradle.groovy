@@ -54,8 +54,8 @@ def downloadNexus(){
 
 def runDownload() {
     figlet 'runDownloadedJar'
-    bat 'java -jar DevOpsUsach2020-0.0.1.jar &'
-    sleep 20
+    bat 'javaw -jar DevOpsUsach2020-0.0.1.jar &'
+    sleep 7
 }
 
 def nexusCI() {
