@@ -26,11 +26,13 @@ def call(String type, String chosenStages, String jobName){
 }
 
 def buildAndTest() {
+    figlet "buildAndTest"
     bat './gradlew clean build'
     println(" Ejecutado")
 }
 
 def sonar() {
+        figlet "sonar"
     def scannerHome = tool 'sonar';
     withSonarQubeEnv('sonar') {
         bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build"
@@ -38,6 +40,7 @@ def sonar() {
 }
 
 def runJar() {
+      figlet "runJar"
     bat 'start gradlew bootRun'
     sleep 7
     println(" Ejecutado")
@@ -45,7 +48,7 @@ def runJar() {
 
 
 def downloadNexus(){
-
+    figlet "downloadNexus"
     bat 'curl -X GET -u admin:Mortal2112 http://localhost:8081/repository/test-nexus/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"'
 }
 
@@ -56,11 +59,13 @@ def runDownload() {
 }
 
 def rest() {
+    figlet "rest"
     bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
     println(" Ejecutado")
 }
 
 def nexusCI() {
+     figlet "nexusCI"
     def jobName=JOB_NAME.replaceAll("/","_")
 
        nexusArtifactUploader(
@@ -82,16 +87,17 @@ def nexusCI() {
   
 }
 
-def nexusCD() {
-def jobName=JOB_NAME.replaceAll("/","_")
-figlet jobName
+        def nexusCD() {
+        figlet "nexusCD"
+        def jobName=JOB_NAME.replaceAll("/","_")
+        def branchName=GIT_BRANCH.replaceAll("origin/","")
 
        nexusArtifactUploader(
             nexusVersion: 'nexus3',
             protocol: 'http',
             nexusUrl: 'localhost:8081',
             groupId: 'com.devopsusach2020',
-            version: '0.0.1-'+'release',
+            version: '0.0.1-'+branchName,
             repository: 'test-nexus',
             credentialsId: 'nexus',
             artifacts: [
