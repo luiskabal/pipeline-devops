@@ -3,133 +3,78 @@
 	def ejecucion = load 'script.groovy'
 	ejecucion.call()
 */
+import pipeline.*
 
-def call(){
- 	def requestedStage = params.tareas.split(';').toList();
+def branch=""
 
-	stage('Build & Test') {
-		env.Tarea='Build & Test'
-
-		try {
-		if(requestedStage.contains(env.Tarea)||params.tareas==''){
-			bat './gradlew clean build'
-			println(env.Tarea+" Ejecutado")
-		}else{
-		error("Error ejecutando: "+ env.Tarea)
-		}	
-		}
-		catch(Exception e) {
-			 	 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh "exit 1"
-                }
-			}
-		
-		}
-		
-		stage('Sonar'){
-		env.Tarea='Sonar'
-		try {
-		if(requestedStage.contains(env.Tarea)||params.tareas==''){
-		def scannerHome = tool 'sonar';
-			withSonarQubeEnv('sonar') {
-				bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build"
-					println(env.Tarea+" Ejecutado")
-			}	
-		}else{
-		error("Error ejecutando: "+ env.Tarea)
-		}	
-		}
-		catch(Exception e) {
-				 	 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-		                sh "exit 1"
-		            }
-				}
-			
-			}
-	
-		
-			
-		
-		stage('Run'){
-			env.Tarea='Run'
-
-				try {
-			
-			if(requestedStage.contains(env.Tarea)||params.tareas==''){
-				
-				bat 'start gradlew bootRun'
-				sleep 7
-				println(env.Tarea+" Ejecutado")
-			}else{
-				error("Error ejecutando: "+ env.Tarea)
-			}
-		}
-		catch(Exception e) {
-			 	 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh "exit 1"
-                }
-			}
-		
-		}
-		
-		
-		stage('Test'){
-			env.Tarea='Test'
-
-				try {
-			if(requestedStage.contains(env.Tarea)||params.tareas==''){
-				env.Tarea='Test'
-				bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
-					println(env.Tarea+" Ejecutado")
-			}
-			else{
-				error("Error ejecutando: "+ env.Tarea)
-			}
-		}
-		catch(Exception e) {
-			 	 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh "exit 1"
-                }
-			}
-		
-		}
-			
-	
-		
-		stage('Nexus Upload'){
-		env.Tarea='Nexus Upload'
-
-			try {
-				if(requestedStage.contains(env.Tarea)||params.tareas==''){
-			nexusArtifactUploader(
-					nexusVersion: 'nexus3',
-					protocol: 'http',
-					nexusUrl: 'http://localhost:8081/',
-					groupId: 'com.devopsusach2020',
-					version: '0.0.1',
-					repository: 'test-nexus',
-					credentialsId: 'nexus',
-					artifacts: [
-					[artifactId: 'DevOpsUsach2020',
-					classifier: '',
-					file: 'C:/Users/luisv/.jenkins/workspace/ejemplo-gradle-LIBRARY/build/libs/DevOpsUsach2020-0.0.1.jar',
-					type: 'jar']
-					]
-					)
-				println(env.Tarea+" Ejecutado")
-			}else{
-				error("Error ejecutando: "+ env.Tarea)
-			}
-		}
-			catch(Exception e) {
-			 	 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh "exit 1"
-                }
-			}
-		
-		}
-	
-
+def call(String type, String chosenStages, String jobName){
+    figlet type
+    branch = jobName
+    def utils = new test.UtilMethods()    
+    def stages = utils.getValidatedStages(type,chosenStages, jobName)
+    stages.each{
+        stage(it){
+            try {
+                "${it}"()
+            }
+            catch (e) {
+                env.FAIL_MESSAGE = "[${USER_NAME}] [${JOB_NAME}] [${params.CHOICE}]  Ejecución fallida en [${it}]"
+                error "Stage ${it} tiene problemas: ${e}"
+            }
+        }
+    }
 }
 
+def buildAndTest() {
+    bat './gradlew clean build'
+    println(" Ejecutado")
+}
+
+def sonar() {
+    def scannerHome = tool 'sonar';
+    withSonarQubeEnv('sonar') {
+        bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build"
+    }   
+}
+
+def runJar() {
+    bat 'start gradlew bootRun'
+    sleep 7
+    println(" Ejecutado")
+}
+
+def rest() {
+    bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
+    println(" Ejecutado")
+}
+def downloadNexus(){
+
+    sh 'curl -X GET -u admin:Mortal2112 '
+}
+
+def nexusCI() {
+    def jobName=JOB_NAME.replaceAll("/","_")
+
+       nexusArtifactUploader(
+            nexusVersion: 'nexus3',
+            protocol: 'http',
+            nexusUrl: 'http://localhost:8081',
+            groupId: 'com.devopsusach2020',
+            version: '0.0.1',
+            repository: 'test-nexus',
+            credentialsId: 'nexus',
+            artifacts: [
+            [artifactId: 'DevOpsUsach2020',
+            classifier: '',
+            file: 'C:/Users/luisv/.jenkins/workspace/'+jobName+'/build/libs/DevOpsUsach2020-0.0.1.jar',
+            type: 'jar']
+            ]
+            )
+        println(" Ejecutado")
+  
+}
+
+def nexusCD() {
+
+}
 return this;
