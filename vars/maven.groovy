@@ -46,7 +46,7 @@ def Sonar(){
  
 }
 def nexusCI() {
-        figlet "nexusCI"
+     figlet "nexusCI"
     def jobName=JOB_NAME.replaceAll("/","_")
 
        nexusArtifactUploader(
@@ -65,6 +65,7 @@ def nexusCI() {
             ]
             )
         println(" Ejecutado")
+  
 }
 
     def nexusCD() {
