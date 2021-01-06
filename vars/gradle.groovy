@@ -49,12 +49,12 @@ def rest() {
 }
 def downloadNexus(){
 
-    bat 'curl -X GET -u admin:Mortal2112 http://localhost:8081/repository/test-nexus/com/devopsusach2020/DevOpsUsach2020/0.0.1-'+GIT_BRANCH+'/DevOpsUsach2020-0.0.1.jar -O"'
+    bat 'curl -X GET -u admin:Mortal2112 http://localhost:8081/repository/test-nexus/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"'
 }
 
 def runDownload() {
     figlet 'runDownloadedJar'
-    sh 'nohup java -jar DevOpsUsach2020-0.0.1.jar &'
+    bat 'java -jar DevOpsUsach2020-0.0.1.jar &'
     sleep 20
 }
 
