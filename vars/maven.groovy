@@ -42,18 +42,20 @@ def Sonar(){
  
 }
 def nexusCI() {
-    nexusArtifactUploader(
+    def jobName=JOB_NAME.replaceAll("/","_")
+
+       nexusArtifactUploader(
             nexusVersion: 'nexus3',
             protocol: 'http',
-            nexusUrl: 'http://localhost:8081/',
+            nexusUrl: 'localhost:8081',
             groupId: 'com.devopsusach2020',
-            version: '0.0.3',
+            version: '0.0.1-'+GIT_BRANCH,
             repository: 'test-nexus',
             credentialsId: 'nexus',
             artifacts: [
             [artifactId: 'DevOpsUsach2020',
             classifier: '',
-            file: 'C:/Users/luisv/.jenkins/workspace/ejemplo-gradle-LIBRARY/build/libs/DevOpsUsach2020-0.0.1.jar',
+            file: 'C:/Users/luisv/.jenkins/workspace/'+jobName+'/build/libs/DevOpsUsach2020-0.0.1.jar',
             type: 'jar']
             ]
             )
@@ -61,6 +63,25 @@ def nexusCI() {
 }
 
 def nexusCD() {
+def jobName=JOB_NAME.replaceAll("/","_")
+
+       nexusArtifactUploader(
+            nexusVersion: 'nexus3',
+            protocol: 'http',
+            nexusUrl: 'localhost:8081',
+            groupId: 'com.devopsusach2020',
+            version: '0.0.1-'+GIT_BRANCH,
+            repository: 'test-nexus',
+            credentialsId: 'nexus',
+            artifacts: [
+            [artifactId: 'DevOpsUsach2020',
+            classifier: '',
+            file: 'C:/Users/luisv/.jenkins/workspace/'+jobName+'/build/libs/DevOpsUsach2020-0.0.1.jar',
+            type: 'jar']
+            ]
+            )
+        println(" Ejecutado")
+    
 
 }
 

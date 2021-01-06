@@ -30,7 +30,7 @@ def usedPipeline(type,pipelineJob){
     def usedStages=[]
     if(pipelineJob.contains("release-")){
          figlet 'CD';
-         usedStages=['downloadNexus','runDownload','rest','nexusCD']
+         usedStages=['downloadNexus']
  
     }else{
         figlet 'CI';
