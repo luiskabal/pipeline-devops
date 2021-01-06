@@ -91,7 +91,7 @@ figlet jobName
             protocol: 'http',
             nexusUrl: 'localhost:8081',
             groupId: 'com.devopsusach2020',
-            version: '0.0.1-'+GIT_BRANCH,
+            version: '0.0.1-'+'release',
             repository: 'test-nexus',
             credentialsId: 'nexus',
             artifacts: [
