@@ -56,6 +56,11 @@ def runDownload() {
      bat './mvnw.cmd clean package -e' 
     sleep 7
 }
+def rest() {
+    figlet "rest"
+    bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
+    println(" Ejecutado")
+}
 
 def nexusCI() {
      figlet "nexusCI"
