@@ -13,7 +13,7 @@ pipeline{
 					script{
 					figlet env.BRANCH_NAME
 					figlet params.buildtool	
-					figlet BRANCH_NAME
+					figlet JOB_NAME
 					bat 'set'
 					if(params.buildtool == 'gradle' ){
 					gradle.call();
