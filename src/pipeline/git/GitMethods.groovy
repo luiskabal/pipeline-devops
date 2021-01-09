@@ -18,9 +18,18 @@ def checkIfBrachUpdated(currentBranch,releaseBranchName){
 	return respuesta ;
 }
 def deleteBranch(releaseBranchName){
-
+bat "git push origin --delete " + releaseBranchName
 }
 def createBranch(releaseBranchName,currentBranch){
+bat 
+'''
+'git reset --hard HEAD'
+'git pull
+'git checkout ''' +currentBranch+ '''
+'git checkout -b ''' +releaseBranchName+ '''
+'git push origin ''' +releaseBranchName+ '''
+'''
+
 
 }
 return this;
