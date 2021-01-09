@@ -6,6 +6,7 @@
 import pipeline.*
 
 
+
 def call(String type, String chosenStages, String jobName){
     figlet type
     def utils = new test.UtilMethods()    
@@ -24,11 +25,12 @@ def call(String type, String chosenStages, String jobName){
 }
 
 def buildAndTest() {
-    checkIfBranchUpdated();
-    createRelease();
+    def releaseBranchName= 'release-v1-0-0'
+    def git = new pipeline.git.GitMethods();
+    git.checkIfBranchExists(releaseBranchName)
+    figlet git.checkIfBranchExists(releaseBranchName)
     figlet "buildAndTest"
     bat './gradlew clean build'
-    
     println(" Ejecutado")
 }
 
@@ -74,9 +76,9 @@ def checkIfBranchUpdated(){
 }
 
 def createRelease(){
+ def git = new pipeline.git.GitMethods();
     def currentBranch=env.GIT_BRANCH;
     def releaseBranchName= 'release-v1-0-0'
-    def git = new git.GitMethods();
     if(git.checkIfBranchExists(releaseBranchName)){
         if(git.checkIfBranchUpdated(currentBranch,releaseBranchName)){
             println('rama'+releaseBranchName+' actualizada con '+currentBranch)
