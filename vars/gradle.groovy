@@ -5,11 +5,12 @@
 */
 import pipeline.*
 
-def branch=""
+def git = new git.GitMethods();
+def currentBranch=env.GIT_BRANCH;
+def releaseBranchName= 'release-v1-0-0'
 
 def call(String type, String chosenStages, String jobName){
     figlet type
-    branch = jobName
     def utils = new test.UtilMethods()    
     def stages = utils.getValidatedStages(type,chosenStages, jobName)
     stages.each{
@@ -26,6 +27,7 @@ def call(String type, String chosenStages, String jobName){
 }
 
 def buildAndTest() {
+    checkIfBrandUpdated();
     figlet "buildAndTest"
     bat './gradlew clean build'
     println(" Ejecutado")
@@ -63,6 +65,27 @@ def rest() {
     figlet "rest"
     bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
     println(" Ejecutado")
+}
+
+def checkIfBrandUpdated(){
+
+    git.checkIfBrandUpdated(currentBranch,releaseBranchName);
+}
+
+def createRelease(){
+
+    if(git.checkIfBrandExists(releaseBranchName)){
+        if(git.checkIfBrandUpdated(currentBranch,releaseBranchName)){
+            println('rama'+releaseBranchName+' actualizada con '+currentBranch)
+        }else{
+            git.deleteBranch(releaseBranchName);
+            git.createBranch(releaseBranchName,currentBranch);
+        }
+
+    }else{
+            git.createBranch(releaseBranchName,currentBranch);
+    }
+
 }
 
 def nexusCI() {
