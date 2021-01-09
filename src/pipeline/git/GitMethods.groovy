@@ -8,7 +8,7 @@ def checkIfBranchExists(releaseBranchName){
 	bat 'git pull'
     def output = bat (script:"git ls-remote --heads origin "+releaseBranchName, returnStdout: true)
 	println output
-	respuesta= (!output?.trim())?false:true
+	respuesta= output.isEmpty()?true:false
 	println respuesta
 	return respuesta
 }
@@ -17,7 +17,7 @@ def checkIfBranchUpdated(currentBranch,releaseBranchName){
 	println("BEGINS  checkIfBranchUpdated(): "+ "git log origin/"+releaseBranchName+"..origin/"+currentBranch)
 	def output = bat (script:"git log origin/"+releaseBranchName+"..origin/"+currentBranch, returnStdout: true)
 	println("BRAND UPDATED: "+ output)
-	respuesta= (!output?.trim())?false:true
+	respuesta= output.isEmpty()?true:false
 
 	return respuesta ;
 }
