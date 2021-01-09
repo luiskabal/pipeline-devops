@@ -5,7 +5,7 @@ def call() {
             USER_NAME = 'Luis Varas Quinteros'
         }
         parameters {
-            choice(name:'CHOICE', choices:['gradle','maven'], description: 'Elección de herramienta de construcción')
+            choice(name:'CHOICE', choices:['gradle','maven'], description: 'Eleccion de herramienta de construccion, buildAndTest')
             string(name:'stages', defaultValue:'', description:'Elija')
         }
         stages {
