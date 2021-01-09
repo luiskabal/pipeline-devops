@@ -34,9 +34,6 @@ bat
 'git pull
 'git checkout ''' +currentBranch+ '''
 'git checkout -b ''' +releaseBranchName+ '''
-'git push origin ''' +releaseBranchName+ '''
-'''
-
-
+'git push origin ''' +releaseBranchName
 }
 return this;
