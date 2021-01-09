@@ -25,7 +25,10 @@ def call(String type, String chosenStages, String jobName){
 }
 
 def buildAndTest() {
-    checkIfBranchUpdated();
+    //checkIfBranchUpdated();
+    def output = bat (script:"git ls-remote --heads origin "+releaseBranchName, returnStdout: true) 
+    respuesta= (!output?.trim())?false:true
+    figlet respuesta
     figlet "buildAndTest"
     bat './gradlew clean build'
     println(" Ejecutado")
