@@ -6,9 +6,9 @@
 import pipeline.*
 
 
- git = new pipeline.git.GitMethods();
- currentBranch=env.GIT_BRANCH;
- releaseBranchName= 'release-v1-0-0'
+@Field def git = new pipeline.git.GitMethods();
+@Field def currentBranch=env.GIT_BRANCH;
+@Field def releaseBranchName= 'release-v1-0-0'
 
 def call(String type, String chosenStages, String jobName){
     figlet type
