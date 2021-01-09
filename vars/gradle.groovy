@@ -25,7 +25,7 @@ def call(String type, String chosenStages, String jobName){
 }
 
 def buildAndTest() {
-    checkIfBrandUpdated();
+    checkIfBrachUpdated();
     figlet "buildAndTest"
     bat './gradlew clean build'
     println(" Ejecutado")
@@ -69,15 +69,15 @@ def checkIfBranchUpdated(){
     def git = new pipeline.git.GitMethods();
     def currentBranch=env.GIT_BRANCH;
     def releaseBranchName= 'release-v1-0-0'
-    git.checkIfBrandUpdated(currentBranch,releaseBranchName);
+    git.checkIfBrachUpdated(currentBranch,releaseBranchName);
 }
 
 def createRelease(){
  def git = new pipeline.git.GitMethods();
     def currentBranch=env.GIT_BRANCH;
     def releaseBranchName= 'release-v1-0-0'
-    if(git.checkIfBrandExists(releaseBranchName)){
-        if(git.checkIfBrandUpdated(currentBranch,releaseBranchName)){
+    if(git.checkIfBrachExists(releaseBranchName)){
+        if(git.checkIfBrachUpdated(currentBranch,releaseBranchName)){
             println('rama'+releaseBranchName+' actualizada con '+currentBranch)
         }else{
             git.deleteBranch(releaseBranchName);
