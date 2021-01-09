@@ -24,6 +24,7 @@ def call(String type, String chosenStages, String jobName){
 }
 
 def buildAndTest() {
+    checkIfBranchUpdated();
     createRelease();
     figlet "buildAndTest"
     bat './gradlew clean build'
