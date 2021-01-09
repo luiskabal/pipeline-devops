@@ -3,17 +3,19 @@ package pipeline.git
 def call(){
 	
 }
-def checkIfBrandExists(releaseBranchName){
-
+def checkIfBrachExists(releaseBranchName){
+	def output = bat (script:"git ls-remote --heads origin "+releaseBranchName, returnStdout: true) 
+	respuesta= (!output?.trim())?true:false
+	return respuesta
 }
-def checkIfBrandUpdated(currentBranch,releaseBranchName){
+def checkIfBrachUpdated(currentBranch,releaseBranchName){
 
-	println("BEGINS  checkIfBrandUpdated(): "+ "git log origin/"+releaseBranchName+"..origin/"+currentBranch)
+	println("BEGINS  checkIfBrachUpdated(): "+ "git log origin/"+releaseBranchName+"..origin/"+currentBranch)
 	def output = bat (script:"git log origin/"+releaseBranchName+"..origin/"+currentBranch, returnStdout: true)
 	println("BRAND UPDATED: "+ output)
-	//respuesta= (!output?.trim())?false:true
+	respuesta= (!output?.trim())?true:false
 
-	return output ;
+	return respuesta ;
 }
 def deleteBranch(releaseBranchName){
 

@@ -65,7 +65,7 @@ def rest() {
     println(" Ejecutado")
 }
 
-def checkIfBrandUpdated(){
+def checkIfBranchUpdated(){
     def git = new pipeline.git.GitMethods();
     def currentBranch=env.GIT_BRANCH;
     def releaseBranchName= 'release-v1-0-0'
