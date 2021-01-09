@@ -27,7 +27,8 @@ def call(String type, String chosenStages, String jobName){
 def buildAndTest() {
     def releaseBranchName= 'release-v1-0-0'
     def git = new pipeline.git.GitMethods();
-    figlet git.checkIfBranchExists(releaseBranchName)
+    git.checkIfBranchExists(releaseBranchName)
+   // figlet git.checkIfBranchExists(releaseBranchName)
     figlet "buildAndTest"
     bat './gradlew clean build'
     println(" Ejecutado")
