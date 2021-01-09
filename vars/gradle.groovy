@@ -5,8 +5,6 @@
 */
 import pipeline.*
 
-
-
 def call(String type, String chosenStages, String jobName){
     figlet type
     def utils = new test.UtilMethods()    
