@@ -4,11 +4,7 @@
 	ejecucion.call()
 */
 import pipeline.*
-import groovy.transform.Field
 
-@Field def git;
-@Field def currentBranch=env.GIT_BRANCH;
-@Field def releaseBranchName= 'release-v1-0-0'
 
 def call(String type, String chosenStages, String jobName){
     figlet type
@@ -77,7 +73,9 @@ def checkIfBranchUpdated(){
 }
 
 def createRelease(){
-    git = new pipeline.git.GitMethods();
+    def currentBranch=env.GIT_BRANCH;
+    def releaseBranchName= 'release-v1-0-0'
+    def git = new pipeline.git.GitMethods();
     if(git.checkIfBranchExists(releaseBranchName)){
         if(git.checkIfBranchUpdated(currentBranch,releaseBranchName)){
             println('rama'+releaseBranchName+' actualizada con '+currentBranch)
