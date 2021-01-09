@@ -5,7 +5,7 @@
 */
 import pipeline.*
 
-def git = new git.GitMethods();
+def git = new pipeline.git.GitMethods();
 def currentBranch=env.GIT_BRANCH;
 def releaseBranchName= 'release-v1-0-0'
 
