@@ -4,7 +4,7 @@
 	ejecucion.call()
 */
 import pipeline.*
-
+import groovy.transform.Field
 
 @Field def git = new pipeline.git.GitMethods();
 @Field def currentBranch=env.GIT_BRANCH;
