@@ -5,9 +5,7 @@
 */
 import pipeline.*
 
-def git = new pipeline.git.GitMethods();
-def currentBranch=env.GIT_BRANCH;
-def releaseBranchName= 'release-v1-0-0'
+
 
 def call(String type, String chosenStages, String jobName){
     figlet type
@@ -68,12 +66,16 @@ def rest() {
 }
 
 def checkIfBrandUpdated(){
-
+    def git = new pipeline.git.GitMethods();
+    def currentBranch=env.GIT_BRANCH;
+    def releaseBranchName= 'release-v1-0-0'
     git.checkIfBrandUpdated(currentBranch,releaseBranchName);
 }
 
 def createRelease(){
-
+ def git = new pipeline.git.GitMethods();
+    def currentBranch=env.GIT_BRANCH;
+    def releaseBranchName= 'release-v1-0-0'
     if(git.checkIfBrandExists(releaseBranchName)){
         if(git.checkIfBrandUpdated(currentBranch,releaseBranchName)){
             println('rama'+releaseBranchName+' actualizada con '+currentBranch)
