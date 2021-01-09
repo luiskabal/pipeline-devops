@@ -1,8 +1,6 @@
 package pipeline.git
 
-def call(){
-	
-}
+
 def checkIfBranchExists(releaseBranchName){
 	println checkIfBranchExists
 	bat 'git pull'
