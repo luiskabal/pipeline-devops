@@ -4,7 +4,7 @@ def call(){
 	
 }
 def checkIfBranchExists(releaseBranchName){
-	def output = bat (script:"git ls-remote --heads origin "+releaseBranchName, returnStdout: true)
+	def output = bat (script:"git pull;git ls-remote --heads origin "+releaseBranchName, returnStdout: true)
 	println output
 	respuesta= (!output?.trim())?false:true
 	return respuesta
@@ -12,14 +12,14 @@ def checkIfBranchExists(releaseBranchName){
 def checkIfBranchUpdated(currentBranch,releaseBranchName){
 
 	println("BEGINS  checkIfBranchUpdated(): "+ "git log origin/"+releaseBranchName+"..origin/"+currentBranch)
-	def output = bat (script:"git log origin/"+releaseBranchName+"..origin/"+currentBranch, returnStdout: true)
+	def output = bat (script:"git pull;git log origin/"+releaseBranchName+"..origin/"+currentBranch, returnStdout: true)
 	println("BRAND UPDATED: "+ output)
 	respuesta= (!output?.trim())?false:true
 
 	return respuesta ;
 }
 def deleteBranch(releaseBranchName){
-bat "git push origin --delete " + releaseBranchName
+bat "git pull;git push origin --delete " + releaseBranchName
 }
 def createBranch(releaseBranchName,currentBranch){
 bat 
