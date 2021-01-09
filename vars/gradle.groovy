@@ -6,7 +6,7 @@
 import pipeline.*
 import groovy.transform.Field
 
-@Field def git = new pipeline.git.GitMethods();
+@Field def git;
 @Field def currentBranch=env.GIT_BRANCH;
 @Field def releaseBranchName= 'release-v1-0-0'
 
@@ -76,7 +76,7 @@ def checkIfBranchUpdated(){
 }
 
 def createRelease(){
-
+    git = new pipeline.git.GitMethods();
     if(git.checkIfBranchExists(releaseBranchName)){
         if(git.checkIfBranchUpdated(currentBranch,releaseBranchName)){
             println('rama'+releaseBranchName+' actualizada con '+currentBranch)
