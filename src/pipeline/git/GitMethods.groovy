@@ -5,7 +5,7 @@ def call(){
 }
 def checkIfBrachExists(releaseBranchName){
 	def output = bat (script:"git ls-remote --heads origin "+releaseBranchName, returnStdout: true) 
-	respuesta= (!output?.trim())?true:false
+	respuesta= (!output?.trim())?false:true
 	return respuesta
 }
 def checkIfBrachUpdated(currentBranch,releaseBranchName){
@@ -13,7 +13,7 @@ def checkIfBrachUpdated(currentBranch,releaseBranchName){
 	println("BEGINS  checkIfBrachUpdated(): "+ "git log origin/"+releaseBranchName+"..origin/"+currentBranch)
 	def output = bat (script:"git log origin/"+releaseBranchName+"..origin/"+currentBranch, returnStdout: true)
 	println("BRAND UPDATED: "+ output)
-	respuesta= (!output?.trim())?true:false
+	respuesta= (!output?.trim())?false:true
 
 	return respuesta ;
 }
