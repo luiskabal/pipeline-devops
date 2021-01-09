@@ -6,9 +6,10 @@
 import pipeline.*
 
 
-def git = new pipeline.git.GitMethods();
-def currentBranch=env.GIT_BRANCH;
-def releaseBranchName= 'release-v1-0-0'
+ git = new pipeline.git.GitMethods();
+ currentBranch=env.GIT_BRANCH;
+ releaseBranchName= 'release-v1-0-0'
+
 def call(String type, String chosenStages, String jobName){
     figlet type
     def utils = new test.UtilMethods()    
