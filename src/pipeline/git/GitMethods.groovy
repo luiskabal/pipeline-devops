@@ -22,14 +22,5 @@ def deleteBranch(releaseBranchName){
 	git pull
 	git push origin --delete '''+ releaseBranchName
 }
-def createBranch(releaseBranchName,currentBranch){
-	println createBranch
-	bat 
-	'''
-	'git reset --hard HEAD'
-	'git pull
-	'git checkout ''' +currentBranch+ '''
-	'git checkout -b ''' +releaseBranchName+ '''
-	'git push origin ''' +releaseBranchName
-}
+
 return this;
