@@ -23,10 +23,9 @@ def call(String type, String chosenStages, String jobName){
 }
 
 def buildAndTest() {
-    createRelease();
     figlet "buildAndTest"
     bat './gradlew clean build'
-    println(" Ejecutado")
+    println(" Ejecutado buildAndTest")
 }
 
 def sonar() {
@@ -34,40 +33,37 @@ def sonar() {
     def scannerHome = tool 'sonar';
     withSonarQubeEnv('sonar') {
         bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle2 -Dsonar.java.binaries=build"
-    }   
+    }
+    println(" Ejecutado sonar")
+
 }
 
 def runJar() {
       figlet "runJar"
     bat 'start gradlew bootRun'
     sleep 7
-    println(" Ejecutado")
+    println(" Ejecutado runJar")
 }
 
 
 def downloadNexus(){
     figlet "downloadNexus"
     bat 'curl -X GET -u admin:Mortal2112 http://localhost:8081/repository/test-nexus/com/devopsusach2020/DevOpsUsach2020/0.0.1-develop/DevOpsUsach2020-0.0.1-develop.jar -O'
+    println(" Ejecutado downloadNexus")    
     sleep 7
 }
 
 def runDownload() {
     figlet 'runDownloadedJar'
     bat "start gradlew bootRun &"
+    println(" Ejecutado runDownload")    
     sleep 7
 }
 
 def rest() {
     figlet "rest"
     bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
-    println(" Ejecutado")
-}
-
-def checkIfBranchUpdated(){
-    def git = new pipeline.git.GitMethods();
-    def currentBranch=env.GIT_BRANCH;
-    def releaseBranchName= 'release-v1-0-0'
-    git.checkIfBranchUpdated(currentBranch,releaseBranchName);
+    println(" Ejecutado rest")
 }
 
 def createRelease(){
@@ -85,53 +81,58 @@ def createRelease(){
     }else{
             git.createBranch(releaseBranchName,currentBranch);
     }
+    println(" Ejecutado createRelease")
+
 
 }
 
 def nexusCI() {
-     figlet "nexusCI"
-    def jobName=JOB_NAME.replaceAll("/","_")
+    figlet "nexusCI"
+    def jobName = JOB_NAME.replaceAll("/","_")
+    def branch = GIT_BRANCH;
 
-       nexusArtifactUploader(
-            nexusVersion: 'nexus3',
-            protocol: 'http',
-            nexusUrl: 'localhost:8081',
-            groupId: 'com.devopsusach2020',
-            version: '0.0.1-'+GIT_BRANCH,
-            repository: 'test-nexus',
-            credentialsId: 'nexus',
-            artifacts: [
-            [artifactId: 'DevOpsUsach2020',
-            classifier: '',
-            file: 'C:/Users/luisv/.jenkins/workspace/'+jobName+'/build/libs/DevOpsUsach2020-0.0.1.jar',
-            type: 'jar']
-            ]
-            )
-        println(" Ejecutado")
-  
+   nexusArtifactUploader(
+        nexusVersion: 'nexus3',
+        protocol: 'http',
+        nexusUrl: 'localhost:8081',
+        groupId: 'com.devopsusach2020',
+        version: '0.0.1-'+branch,
+        repository: 'test-nexus',
+        credentialsId: 'nexus',
+        artifacts: [
+        [artifactId: 'DevOpsUsach2020',
+        classifier: '',
+        file: 'C:/Users/luisv/.jenkins/workspace/'+jobName+'/build/libs/DevOpsUsach2020-0.0.1.jar',
+        type: 'jar']
+        ]
+        )
+   if(branch=='develop'){
+    createRelease();
+   }
+    println(" Ejecutado nexusCI")
 }
 
-        def nexusCD() {
-        figlet "nexusCD"
-        def jobName=JOB_NAME.replaceAll("/","_")
-        def branchName=GIT_BRANCH.replaceAll("origin/","")
+def nexusCD() {
+figlet "nexusCD"
+def jobName=JOB_NAME.replaceAll("/","_")
+def branchName=GIT_BRANCH.replaceAll("origin/","")
 
-       nexusArtifactUploader(
-            nexusVersion: 'nexus3',
-            protocol: 'http',
-            nexusUrl: 'localhost:8081',
-            groupId: 'com.devopsusach2020',
-            version: '0.0.1-'+branchName,
-            repository: 'test-nexus',
-            credentialsId: 'nexus',
-            artifacts: [
-            [artifactId: 'DevOpsUsach2020',
-            classifier: '',
-            file: 'C:/Users/luisv/.jenkins/workspace/ci-cd/pipeline-cd/DevOpsUsach2020-0.0.1-develop.jar',
-            type: 'jar']
-            ]
-            )
-        println(" Ejecutado")
+    nexusArtifactUploader(
+        nexusVersion: 'nexus3',
+        protocol: 'http',
+        nexusUrl: 'localhost:8081',
+        groupId: 'com.devopsusach2020',
+        version: '0.0.1-'+branchName,
+        repository: 'test-nexus',
+        credentialsId: 'nexus',
+        artifacts: [
+        [artifactId: 'DevOpsUsach2020',
+        classifier: '',
+        file: 'C:/Users/luisv/.jenkins/workspace/ci-cd/pipeline-cd/DevOpsUsach2020-0.0.1-develop.jar',
+        type: 'jar']
+        ]
+        )
+    println(" Ejecutado nexusCD")
 
 
 }
