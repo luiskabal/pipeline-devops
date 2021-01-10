@@ -28,16 +28,19 @@ def getValidatedStages(String type,String chosenStages, String pipelineJob) {
 }
 def usedPipeline(type,pipelineJob){
     def usedStages=[]
-    if(pipelineJob.contains("release-")){
+    if(pipelineJob.contains('release-')){
          figlet 'CD';
          usedStages=['downloadNexus','runDownload','rest','nexusCD']
  
     }else{
         figlet 'CI';
-        if(type.contains("maven")){
+        if(type.contains('maven')){
              usedStages=['compile','unitTest','Jar','Sonar','nexusCI']
         }else{
             usedStages=['buildAndTest','sonar','runJar','rest','nexusCI']
+        }
+        if(pipelineJob.contains("develop")){
+            usedStages.add('createRelease')
         }
     }
 
