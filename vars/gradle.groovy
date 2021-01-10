@@ -67,7 +67,7 @@ def rest() {
 }
 
 def createRelease(){
- def git = new pipeline.git.GitMethods();
+    def git = new pipeline.git.GitMethods();
     def currentBranch=env.GIT_BRANCH;
     def releaseBranchName= 'release-v1-0-0'
     if(git.checkIfBranchExists(releaseBranchName)){
@@ -82,8 +82,6 @@ def createRelease(){
             git.createBranch(releaseBranchName,currentBranch);
     }
     println(" Ejecutado createRelease")
-
-
 }
 
 def nexusCI() {
@@ -106,11 +104,7 @@ def nexusCI() {
         type: 'jar']
         ]
         )
-    /*   
-    if(branch=='develop'){
-    createRelease();
-    }*/
-    println(" Ejecutado nexusCI")
+   println(" Ejecutado nexusCI")
 }
 
 def nexusCD() {
@@ -134,7 +128,5 @@ def branchName=GIT_BRANCH.replaceAll("origin/","")
         ]
         )
     println(" Ejecutado nexusCD")
-
-
 }
 return this;

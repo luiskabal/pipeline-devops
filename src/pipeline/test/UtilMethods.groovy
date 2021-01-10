@@ -34,11 +34,7 @@ def usedPipeline(type,pipelineJob){
  
     }else{
         figlet 'CI';
-        if(type.contains('maven')){
-             usedStages=['compile','unitTest','Jar','Sonar','nexusCI']
-        }else{
-            usedStages=['buildAndTest','sonar','runJar','rest','nexusCI']
-        }
+        usedStages = type.contains('maven')?['compile','unitTest','Jar','Sonar','nexusCI']:['buildAndTest','sonar','runJar','rest','nexusCI']
         if(pipelineJob.contains("develop")){
             usedStages.add('createRelease')
         }
