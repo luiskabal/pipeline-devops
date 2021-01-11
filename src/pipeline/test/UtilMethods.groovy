@@ -31,7 +31,6 @@ def usedPipeline(type,pipelineJob){
     if(pipelineJob.contains('release-')){
          figlet 'CD';
          usedStages=['downloadNexus','runDownload','rest','nexusCD']
- 
     }else{
         figlet 'CI';
         usedStages = type.contains('maven')?['compile','unitTest','Jar','Sonar','nexusCI']:['buildAndTest','sonar','runJar','rest','nexusCI']

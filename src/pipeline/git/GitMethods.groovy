@@ -10,8 +10,9 @@ def checkIfBranchExists(releaseBranchName){
 	return respuesta
 }
 def checkIfBranchUpdated(currentBranch,releaseBranchName){
-	bat 'git remote set-head origin --auto'
 	bat 'git pull'
+	bat 'git remote set-head origin --auto'
+	
 	def output = bat (script:"@git log origin/"+releaseBranchName+"..origin/"+currentBranch, returnStdout: true)
 	respuesta= !output.isEmpty()?true:false
 	return respuesta
