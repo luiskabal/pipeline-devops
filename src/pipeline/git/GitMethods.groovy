@@ -12,7 +12,7 @@ def checkIfBranchExists(releaseBranchName){
 def checkIfBranchUpdated(currentBranch,releaseBranchName){
 	bat 'git pull'
 	def output = bat (script:"@git log origin/"+releaseBranchName+"..origin/"+currentBranch, returnStdout: true)
-	respuesta= output.isEmpty()?true:false
+	respuesta= !output.isEmpty()?true:false
 	return respuesta
 }
 def deleteBranch(releaseBranchName){
@@ -27,5 +27,10 @@ def createBranch(releaseBranchName,currentBranch){
 	git checkout ''' +currentBranch+ '''
 	git checkout -b ''' +releaseBranchName+ '''
 	git push origin ''' +releaseBranchName
+}
+def getVersion(){
+	bat 'git pull'
+	def version = bat(script: "@type version.txt", returnStdout: true).trim()
+	return version
 }
 return this;
