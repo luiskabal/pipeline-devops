@@ -37,6 +37,10 @@ def usedPipeline(type,pipelineJob){
         if(pipelineJob.contains("develop")){
             usedStages.add('createRelease')
         }
+        if(pipelineJob.contains("pipeline-cd")){
+            usedStages.add('createRelease')
+            usedStages.add('gitDiff')
+        }
     }
 
 return usedStages
