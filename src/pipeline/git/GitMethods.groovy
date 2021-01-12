@@ -9,7 +9,7 @@ def checkIfBranchExists(releaseBranchName){
 	respuesta= !output.isEmpty()?true:false
 	*/
 	respuesta = sh "git fetch; git ls-remote --heads origin ${releaseBranchName} | wc -l"
-	return respuesta
+	return respuesta == 1 ? true:false;
 }
 def checkIfBranchUpdated(currentBranch,releaseBranchName){
 	/*bat 'git checkout '+releaseBranchName
@@ -17,7 +17,7 @@ def checkIfBranchUpdated(currentBranch,releaseBranchName){
 	def output = bat (script:"@git log origin/"+releaseBranchName+"..origin/"+currentBranch, returnStdout: true)
 	respuesta= !output.isEmpty()?true:false*/
 	respuesta = sh "git fetch; git checkout ${releaseBranchName}; git pull origin ${releaseBranchName} | wc -l"
-	return respuesta
+	return respuesta == 1 ? true:false;
 }
 def deleteBranch(releaseBranchName){
 	/*bat '''
