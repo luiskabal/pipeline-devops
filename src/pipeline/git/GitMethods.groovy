@@ -33,7 +33,7 @@ def createBranch(releaseBranchName,currentBranch){
 	git checkout -b ''' +releaseBranchName+ '''
 	git push origin ''' +releaseBranchName*/
 
-	sh "git reset --hard HEAD; git fetch; git checkout ${currentBranch}; git checkout -b ${releaseBranchName}; git push origin ${releaseBranchName}"
+	sh "git reset --hard HEAD; git fetch; git checkout ${currentBranch}; git checkout -b ${releaseBranchName}; git push origin ${releaseBranchName} --set-upstream"
 }
 def getVersion(){
 	/*
