@@ -24,7 +24,8 @@ def call(String type, String chosenStages, String jobName){
 
 def buildAndTest() {
     figlet "buildAndTest"
-    bat './gradlew clean build'
+    //bat './gradlew clean build'
+    sh './gradlew clean build'
     println(" Ejecutado buildAndTest")
 }
 
@@ -32,7 +33,8 @@ def sonar() {
         figlet "sonar"
     def scannerHome = tool 'sonar';
     withSonarQubeEnv('sonar') {
-        bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle2 -Dsonar.java.binaries=build"
+        //bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle2 -Dsonar.java.binaries=build"
+        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build"
     }
     println(" Ejecutado sonar")
 
@@ -40,7 +42,8 @@ def sonar() {
 
 def runJar() {
       figlet "runJar"
-    bat 'start gradlew bootRun'
+    //bat 'start gradlew bootRun'
+    sh 'start gradlew bootRun'
     sleep 15
     println(" Ejecutado runJar")
 }
@@ -48,21 +51,24 @@ def runJar() {
 
 def downloadNexus(){
     figlet "downloadNexus"
-    bat 'curl -X GET -u admin:Mortal2112 http://localhost:8081/repository/test-nexus/com/devopsusach2020/DevOpsUsach2020/0.0.1-develop/DevOpsUsach2020-0.0.1-develop.jar -O'
+    //bat 'curl -X GET -u admin:Mortal2112 http://localhost:8081/repository/test-nexus/com/devopsusach2020/DevOpsUsach2020/0.0.1-develop/DevOpsUsach2020-0.0.1-develop.jar -O'
+    sh 'curl -X GET -u admin:Mortal2112 http://localhost:8081/repository/test-nexus/com/devopsusach2020/DevOpsUsach2020/0.0.1-develop/DevOpsUsach2020-0.0.1-develop.jar -O'
     println(" Ejecutado downloadNexus")    
     sleep 10
 }
 
 def runDownload() {
     figlet 'runDownloadedJar'
-    bat "start gradlew bootRun &"
+    //bat "start gradlew bootRun &"
+    sh "start gradlew bootRun &"
     println(" Ejecutado runDownload")    
     sleep 7
 }
 
 def rest() {
     figlet "rest"
-    bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
+    //bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
+    "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
     println(" Ejecutado rest")
 }
 
@@ -128,5 +134,11 @@ def branchName=GIT_BRANCH.replaceAll("origin/","")
         ]
         )
     println(" Ejecutado nexusCD")
+}
+
+def gitDiff() {
+    def git = new pipeline.git.GitMethods();
+    def releaseBranchName= 'release-v1-0-0'
+    git.gitDiff(releaseBranchName,'main')
 }
 return this;
