@@ -8,7 +8,7 @@ def checkIfBranchExists(releaseBranchName){
     def output = bat (script:"@git ls-remote --heads "+releaseBranchName, returnStdout: true)
 	respuesta= !output.isEmpty()?true:false
 	*/
-	respuesta = sh "git fetch; git ls-remote --heads origin ${releaseBranchName} | wc -l"
+	respuesta = sh "@git fetch; git ls-remote --heads origin ${releaseBranchName} | wc -l"
 	if (respuesta == 0) { //No existe en remoto, verificar en local
 		respuesta = sh "git branch --list ${releaseBranchName} | wc -l"
 	}
@@ -19,7 +19,7 @@ def checkIfBranchUpdated(currentBranch,releaseBranchName){
 	bat 'git pull'
 	def output = bat (script:"@git log origin/"+releaseBranchName+"..origin/"+currentBranch, returnStdout: true)
 	respuesta= !output.isEmpty()?true:false*/
-	respuesta = sh "git fetch; git checkout ${releaseBranchName}; git pull origin ${releaseBranchName} | wc -l"
+	respuesta = sh "@git fetch; git checkout ${releaseBranchName}; git pull origin ${releaseBranchName} | wc -l"
 	return respuesta == 1 ? true:false;
 }
 def deleteBranch(releaseBranchName){
@@ -42,7 +42,7 @@ def getVersion(){
 	/*
 	bat 'git pull'
 	def version = bat(script: "@type version.txt", returnStdout: true).trim()*/
-	version = sh "cat version.txt"
+	def version = readFile "version.txt"
 	return version
 }
 def gitDiff(branch1,branch2){
