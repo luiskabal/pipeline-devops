@@ -75,7 +75,7 @@ def rest() {
 def createRelease(){
     def git = new pipeline.git.GitMethods();
     def currentBranch=env.GIT_BRANCH;
-    def version = sh 'cat version.txt'
+    def version = readFile "version.txt"
     def releaseBranchName= "release-${version}"
     if(git.checkIfBranchExists(releaseBranchName)){
         if(git.checkIfBranchUpdated(currentBranch,releaseBranchName)){
