@@ -41,40 +41,4 @@ def getVersion(){
 	return version
 }
 
-def gitDiff(){                       
-    def version = bat (script:"@type version.txt", returnStdout: true).trim()
-    def git = new pipeline.git.GitMethods();
-    def currentBranch="origin/release-"+version;
-    def targetBranch="origin/main"
-    //git.gitDiff(currentBranch,targetBranch)
-    println('*************** stage gitDiff')   
-}
-
-def gitMergeMaster(){
-    println('*************** gitMergeMaster')
-    def version = bat (script:"@type version.txt", returnStdout: true).trim()
-    bat "git switch main"
-    bat "git merge origin/release-"+version
-    bat "git push origin main"
-
-}
-
-def gitMergeDevelop(){
-
-    def version = bat (script:"@type version.txt", returnStdout: true).trim()
-    bat "git switch develop"
-    bat "git merge release-"+version
-    bat "git push origin develop"
-    println('*************** gitMergeDevelop')
-    
-}
-
-def gitTagMaster(){
-
-    bat "git switch main"
-    bat "git tag v1-0-10"
-    bat "git push origin --tags"
-    println('*************** gitTagMaster')
-    
-}
 return this;
