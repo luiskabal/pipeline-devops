@@ -91,12 +91,6 @@ def gitDiff(){
     git.gitDiff();
 }
 
-def gitDiff(){
-    def git = new pipeline.git.GitMethods();
-    git.gitDiff();
-
-}
-
 def gitMergeMaster(){
     def git = new pipeline.git.GitMethods();
     git.gitMergeMaster();
