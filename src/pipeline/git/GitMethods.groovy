@@ -4,8 +4,9 @@ def call(){
 	
 }
 def checkIfBranchExists(releaseBranchName){
+	println('checkIfBranchExists')
 	bat 'git pull'
-    def output = bat (script:"@git ls-remote --heads "+releaseBranchName, returnStdout: true)
+    def output = bat (script:"@git ls-remote origin --heads "+releaseBranchName, returnStdout: true)
 	respuesta= !output.isEmpty()?true:false
 	return respuesta
 }
