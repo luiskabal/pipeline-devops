@@ -27,7 +27,7 @@ def buildAndTest() {
     def git = new pipeline.git.GitMethods();
 
      println(git);
-     println(git.call());
+     println(git.getVersion());
 
     figlet "buildAndTest"
     bat './gradlew clean build'
