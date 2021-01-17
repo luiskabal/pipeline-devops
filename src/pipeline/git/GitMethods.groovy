@@ -1,9 +1,6 @@
 package pipeline.git
 
-def call(){
-
-		println('ACAAAAAAAAAAAAAA')
-	
+def call(){	
 }
 
 def checkIfBranchExists(releaseBranchName){
@@ -35,13 +32,14 @@ def getVersion(){
 	return version
 }
 
-def gitDiff(){                       
+def gitDiff(){ 
+	println('*************** stage gitDiff')                         
     def version = bat (script:"@type version.txt", returnStdout: true).trim()
     def git = new pipeline.git.GitMethods();
     def currentBranch="origin/release-"+version;
     def targetBranch="origin/main"
     //git.gitDiff(currentBranch,targetBranch)
-    println('*************** stage gitDiff')   
+   
 }
 
 def gitMergeMaster(){
@@ -75,6 +73,7 @@ def gitTagMaster(){
 def createBranch(releaseBranchName,currentBranch){
 	bat '''
 	git reset --hard HEAD
+	git checkout .
 	git pull
 	git checkout ''' +currentBranch+ '''
 	git checkout -b ''' +releaseBranchName+ '''
