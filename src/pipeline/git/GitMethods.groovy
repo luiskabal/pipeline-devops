@@ -16,7 +16,7 @@ def checkIfBranchUpdated(currentBranch,releaseBranchName){
 	bat 'git pull'	
 	bat 'git switch '+releaseBranchName
 	bat 'git pull'
-	def output = bat (script:"@git log origin/"+releaseBranchName+"..origin/"+currentBranch, returnStdout: true)
+	def output = bat (script:"@git log "+releaseBranchName+".."+currentBranch, returnStdout: true)
 	respuesta= !output.isEmpty()?true:false
 	return respuesta
 }
