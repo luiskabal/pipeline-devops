@@ -23,12 +23,6 @@ def call(String type, String chosenStages, String jobName){
 }
 
 def buildAndTest() {
-    println(" Ejecutado buildAndTest")
-    def git = new pipeline.git.GitMethods();
-
-     println(git);
-     println(git.getVersion());
-
     figlet "buildAndTest"
     bat './gradlew clean build'
     println(" Ejecutado buildAndTest")
