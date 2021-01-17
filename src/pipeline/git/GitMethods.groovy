@@ -30,6 +30,7 @@ def deleteBranch(releaseBranchName){
 
 def getVersion(){
 	bat 'git pull'
+	println('getVersion');
 	def version = bat(script: "@type version.txt", returnStdout: true).trim()
 	return version
 }
