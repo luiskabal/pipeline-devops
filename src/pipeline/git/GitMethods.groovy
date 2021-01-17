@@ -59,7 +59,7 @@ def gitMergeDevelop(){
 
     def version = bat (script:"@type version.txt", returnStdout: true).trim()
     bat "git switch develop"
-    bat "git merge release-"+version
+    bat "git merge origin/release-"+version
     bat "git push origin develop"
     println('*************** gitMergeDevelop')
     
