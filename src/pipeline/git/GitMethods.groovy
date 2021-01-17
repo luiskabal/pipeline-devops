@@ -28,15 +28,6 @@ def deleteBranch(releaseBranchName){
 	git push origin --delete '''+ releaseBranchName
 }
 
-def createBranch(releaseBranchName,currentBranch){
-	bat '''
-	git reset --hard HEAD
-	git pull
-	git checkout ''' +currentBranch+ '''
-	git checkout -b ''' +releaseBranchName+ '''
-	git push origin ''' +releaseBranchName
-}
-
 def getVersion(){
 	bat 'git pull'
 	def version = bat(script: "@type version.txt", returnStdout: true).trim()
@@ -79,4 +70,15 @@ def gitTagMaster(){
     println('*************** gitTagMaster')
     
 }
+
+def createBranch(releaseBranchName,currentBranch){
+	bat '''
+	git reset --hard HEAD
+	git pull
+	git checkout ''' +currentBranch+ '''
+	git checkout -b ''' +releaseBranchName+ '''
+	git push origin ''' +releaseBranchName
+}
+
+
 return this;
