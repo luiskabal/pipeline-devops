@@ -66,9 +66,9 @@ def gitMergeDevelop(){
 }
 
 def gitTagMaster(){
-
+	def version = bat (script:"@type version.txt", returnStdout: true).trim()
     bat "git switch main"
-    bat "git tag v1-0-10"
+    bat "git tag "+version
     bat "git push origin --tags"
     println('*************** gitTagMaster')
     
