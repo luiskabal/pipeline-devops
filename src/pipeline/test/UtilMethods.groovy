@@ -46,4 +46,31 @@ def usedPipeline(type,pipelineJob){
 return usedStages
 }
 
+def validateReleaseBranchName(releaseBranchName){
+	assert ('Release-v\\d+\\-\\d+\\-\\d+' == releaseBranchName)
+}
+
+def validateFiles(choice) {
+    if (choice == 'gradle') {
+        def exists = fileExists 'build.gradle'
+        if (exists) {
+            return error "Se intenta ejecutar bajo Gradle pero el directorio no tiene archivos correspondientes"
+        }
+    }
+    else if (choice == 'maven') {
+        def exists = fileExists 'build.gradle'
+        if (exists) {
+            return error "Se intenta ejecutar bajo Maven pero el directorio no tiene archivos correspondientes"
+        }
+    }
+}
+
+def validateKindApp(git_url) {
+    def gitRepoName = env.GIT_URL.replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
+    def kind = gitRepoName.split('-').toList()
+
+    return "El tipo de aplicación es ${kind}"
+}
+
+
 return this

@@ -1,14 +1,16 @@
 package pipeline.git
+import java.util.regex.Pattern
 
 def call(){
 	
 }
+
 def checkIfBranchExists(releaseBranchName){
 	/*bat 'git pull'
     def output = bat (script:"@git ls-remote --heads "+releaseBranchName, returnStdout: true)
 	respuesta= !output.isEmpty()?true:false
 	*/
-	respuesta = sh "@git fetch; git ls-remote --heads origin ${releaseBranchName} | wc -l"
+	respuesta = sh "git fetch; git ls-remote --heads origin ${releaseBranchName} | wc -l"
 	if (respuesta == 0) { //No existe en remoto, verificar en local
 		respuesta = sh "git branch --list ${releaseBranchName} | wc -l"
 	}
@@ -19,7 +21,7 @@ def checkIfBranchUpdated(currentBranch,releaseBranchName){
 	bat 'git pull'
 	def output = bat (script:"@git log origin/"+releaseBranchName+"..origin/"+currentBranch, returnStdout: true)
 	respuesta= !output.isEmpty()?true:false*/
-	respuesta = sh "@git fetch; git checkout ${releaseBranchName}; git pull origin ${releaseBranchName} | wc -l"
+	respuesta = sh "git fetch; git checkout ${releaseBranchName}; git pull origin ${releaseBranchName} | wc -l"
 	return respuesta == 1 ? true:false;
 }
 def deleteBranch(releaseBranchName){
