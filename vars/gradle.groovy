@@ -70,7 +70,7 @@ def createRelease(){
 
     def git = new pipeline.git.GitMethods();
     def currentBranch=env.GIT_BRANCH;
-    def releaseBranchName= 'release-v1-0-0'
+    def releaseBranchName= 'release-'+git.getVersion()
     println(" EJECUTANDO: createRelease "+releaseBranchName)
     if(git.checkIfBranchExists(releaseBranchName)){
         if(git.checkIfBranchUpdated(currentBranch,releaseBranchName)){
@@ -86,41 +86,33 @@ def createRelease(){
     println(" Ejecutado createRelease")
 }
 
-def gitDiff(){                       
-    def version = bat (script:"@type version.txt", returnStdout: true).trim()
+def gitDiff(){
     def git = new pipeline.git.GitMethods();
-    def currentBranch="origin/release-"+version;
-    def targetBranch="origin/main"
-    //git.gitDiff(currentBranch,targetBranch)
-    println('*************** stage gitDiff')   
+    git.gitDiff();
+}
+
+def gitDiff(){
+    def git = new pipeline.git.GitMethods();
+    git.gitDiff();
+
 }
 
 def gitMergeMaster(){
-    println('*************** gitMergeMaster')
-    def version = bat (script:"@type version.txt", returnStdout: true).trim()
-    bat "git switch main"
-    bat "git merge origin/release-"+version
-    bat "git push origin main"
+    def git = new pipeline.git.GitMethods();
+    git.gitMergeMaster();
 
 }
 
 def gitMergeDevelop(){
+    def git = new pipeline.git.GitMethods();
+    git.gitMergeDevelop();
 
-    def version = bat (script:"@type version.txt", returnStdout: true).trim()
-    bat "git switch develop"
-    bat "git merge release-"+version
-    bat "git push origin develop"
-    println('*************** gitMergeDevelop')
-    
 }
 
 def gitTagMaster(){
+    def git = new pipeline.git.GitMethods();
+    git.gitTagMaster();
 
-    bat "git switch main"
-    bat "git tag v1-0-10"
-    bat "git push origin --tags"
-    println('*************** gitTagMaster')
-    
 }
 
 
