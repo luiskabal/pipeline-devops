@@ -21,6 +21,9 @@ def call(String type, String chosenStages, String jobName){
                 def releaseBranchName = "release-${version}"
                 utils.validateReleaseBranchName(releaseBranchName)
 
+                //Validar que exista archivo de versión
+                //Validar puerto (retornar número)
+                
                 "${it}"()
             }
             catch (e) {

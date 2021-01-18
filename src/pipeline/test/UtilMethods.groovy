@@ -58,7 +58,7 @@ def validateFiles(choice) {
         }
     }
     else if (choice == 'maven') {
-        def exists = fileExists 'build.gradle'
+        def exists = fileExists 'pom.xml'
         if (exists) {
             return error "Se intenta ejecutar bajo Maven pero el directorio no tiene archivos correspondientes"
         }
@@ -69,7 +69,7 @@ def validateKindApp(git_url) {
     def gitRepoName = env.GIT_URL.replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
     def kind = gitRepoName.split('-').toList()
 
-    return "El tipo de aplicación es ${kind}"
+    return "El tipo de aplicación es ${kind[0]}"
 }
 
 
