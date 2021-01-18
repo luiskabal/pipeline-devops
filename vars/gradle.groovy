@@ -24,9 +24,7 @@ def call(String type, String chosenStages, String jobName){
 
 def buildAndTest() {
     env.NombreStage='buildAndTest'
-    figlet "buildAndTest"
-    bat './gradlew clean build'
-    println(" Ejecutado buildAndTest"+ env.NombreStage)
+  
 }
 
 def sonar() {

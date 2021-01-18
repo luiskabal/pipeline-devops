@@ -4,7 +4,7 @@ def call() {
         environment { 
             USER_NAME = 'Luis Varas Quinteros'
             GROUP = 'Grupo4'
-            NombreStage="nada"
+            NombreStage=''
         }
         parameters {
             choice(name:'CHOICE', choices:['gradle','maven'], description: 'Eleccion de herramienta de construccion')
