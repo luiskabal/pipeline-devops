@@ -26,7 +26,7 @@ def buildAndTest() {
     env.NombreStage="buildAndTest"
     figlet "buildAndTest"
     bat './gradlew clean build'
-    println(" Ejecutado buildAndTest")
+    println(" Ejecutado buildAndTest"+ env.NombreStage)
 }
 
 def sonar() {
