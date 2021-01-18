@@ -47,7 +47,7 @@ return usedStages
 }
 
 def validateReleaseBranchName(releaseBranchName){
-	assert ('Release-v\\d+\\-\\d+\\-\\d+' == releaseBranchName)
+	assert ('release-v\\d+\\-\\d+\\-\\d+' == releaseBranchName)
 }
 
 def validateFiles(choice) {
