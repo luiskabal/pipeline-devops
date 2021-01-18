@@ -48,7 +48,13 @@ return usedStages
 }
 
 def validateReleaseBranchName(releaseBranchName){
-	assert (/release-v\d+\-\d+\-\d+/) == "${releaseBranchName}"
+	//assert (/release-v\d+\-\d+\-\d+/) == "${releaseBranchName}"
+    if ("${releaseBranchName}" =~ /release-v\d+\-\d+\-\d+/) {
+        println "Rama release correctamente formada"
+    }
+    else {
+        error "La rama release no tiene el formato correcto: ${releaseBranchName}"
+    }
 }
 
 def validateFiles(choice) {
