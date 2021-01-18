@@ -52,14 +52,14 @@ def validateReleaseBranchName(releaseBranchName){
 
 def validateFiles(choice) {
     if (choice == 'gradle') {
-        def exists = fileExists 'build.gradle'
-        if (exists) {
+        def exists = fileExists('build.gradle')
+        if (!exists) {
             return error "Se intenta ejecutar bajo Gradle pero el directorio no tiene archivos correspondientes"
         }
     }
     else if (choice == 'maven') {
-        def exists = fileExists 'pom.xml'
-        if (exists) {
+        def exists = fileExists('pom.xml')
+        if (!exists) {
             return error "Se intenta ejecutar bajo Maven pero el directorio no tiene archivos correspondientes"
         }
     }
@@ -72,5 +72,17 @@ def validateKindApp(git_url) {
     return "El tipo de aplicación es ${kind[0]}"
 }
 
+def validateVersionFile() {
+    def exists = fileExists('version.txt')
+        if (!exists) {
+            return error "No se ha agregado el archivo de versión"
+        }
+}
+
+def validatePort() {
+    def port = readFile "src/main/resources/application.properties"
+    def number = port.split('=').toList()
+    return number[1]
+}
 
 return this
