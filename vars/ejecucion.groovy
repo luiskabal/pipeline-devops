@@ -33,14 +33,14 @@ def call() {
             success {
                 slackSend channel: 'U01DK543PKN', 
                 color: 'good', 
-                message: "[${GROUP}] [${JOB_NAME}] [${params.CHOICE}] "+env.NombreStage+" Ejecucion exitosa", 
+                message: "[${GROUP}] [${JOB_NAME}] [${params.CHOICE}] ["+env.NombreStage+"] Ejecucion exitosa", 
                 teamDomain: 'dipdevopsusach2020', 
                 tokenCredentialId: 'slack-Token'
             }
             failure {
                 slackSend channel: 'U01DK543PKN', 
                 color: 'danger', 
-                message: "ERROR EN "+env.NombreStage, 
+                message: "ERROR EN ["+env.NombreStage+"]", 
                 teamDomain: 'dipdevopsusach2020', 
                 tokenCredentialId: 'slack-Token'
             }
