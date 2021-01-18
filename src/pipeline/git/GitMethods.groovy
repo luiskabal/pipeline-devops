@@ -40,8 +40,9 @@ def gitDiff(){
     def git = new pipeline.git.GitMethods();
     def currentBranch="origin/release-"+version;
     def targetBranch="origin/main"
-    //git.gitDiff(currentBranch,targetBranch)
-   
+    def output = bat (script: '@git diff '+currentBranch+'..'+targetBranch+'' , returnStdout:true).trim()
+    println('*************** stage gitDiff '+ output) 
+   	return output.isEmpty()
 }
 
 def gitMergeMaster(){
