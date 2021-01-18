@@ -112,8 +112,8 @@ def gitTagMaster(){
 def nexusCI() {
     figlet "nexusCI"
     def jobName = JOB_NAME.replaceAll("/","_")
-    def branch = GIT_BRANCH;
-    def workspace = WORKSPACE;
+    def branch = GIT_BRANCH
+    def workspace = WORKSPACE
     figlet workspace
     figlet jobName
    nexusArtifactUploader(
@@ -128,7 +128,6 @@ def nexusCI() {
         [artifactId: 'DevOpsUsach2020',
         classifier: '',
         file: 'C:/Users/luisv/.jenkins/workspace/'+jobName+'/build/libs/DevOpsUsach2020-0.0.1.jar',
-        C:\Users\luisv\.jenkins\workspace\d_pipeline-ci_feature-estadopais\build\libs
         type: 'jar']
         ]
         )
