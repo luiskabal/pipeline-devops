@@ -114,8 +114,6 @@ def nexusCI() {
     def jobName = JOB_NAME.replaceAll("/","_")
     def branch = GIT_BRANCH
     def workspace = WORKSPACE
-    println('workspace '+ workspace)
-    println('jobName '+ jobName)
    nexusArtifactUploader(
         nexusVersion: 'nexus3',
         protocol: 'http',
@@ -127,7 +125,7 @@ def nexusCI() {
         artifacts: [
         [artifactId: 'DevOpsUsach2020',
         classifier: '',
-        file: 'C:/Users/luisv/.jenkins/workspace/'+jobName+'/build/libs/DevOpsUsach2020-0.0.1.jar',
+        file: workspace+'/build/libs/DevOpsUsach2020-0.0.1.jar',
         type: 'jar']
         ]
         )
