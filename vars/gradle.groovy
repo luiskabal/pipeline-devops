@@ -114,8 +114,8 @@ def nexusCI() {
     def jobName = JOB_NAME.replaceAll("/","_")
     def branch = GIT_BRANCH
     def workspace = WORKSPACE
-    figlet workspace
-    figlet jobName
+    println('workspace '+ workspace)
+    println('jobName '+ jobName)
    nexusArtifactUploader(
         nexusVersion: 'nexus3',
         protocol: 'http',
