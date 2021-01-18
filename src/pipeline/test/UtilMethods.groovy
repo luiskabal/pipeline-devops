@@ -62,13 +62,18 @@ def validateFiles(choice) {
         def exists = fileExists('build.gradle')
         if (!exists) {
             error "Se intenta ejecutar bajo Gradle pero el directorio no tiene archivos correspondientes"
+        } else {
+            println "Se valido que se está ejecutando bajo gradle y los archivos necesarios están correctos"
         }
     }
     else if (choice == 'maven') {
         def exists = fileExists('pom.xml')
         if (!exists) {
             error "Se intenta ejecutar bajo Maven pero el directorio no tiene archivos correspondientes"
+        } else {
+            println "Se valido que se está ejecutando bajo gradle y los archivos necesarios están correctos"
         }
+        
     }
 }
 
@@ -76,20 +81,22 @@ def validateKindApp(git_url) {
     def gitRepoName = env.GIT_URL.replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
     def kind = gitRepoName.split('-').toList()
 
-    return "El tipo de aplicación es ${kind[0]}"
+    println "El tipo de aplicación es ${kind[0]}"
 }
 
 def validateVersionFile() {
     def exists = fileExists('version.txt')
         if (!exists) {
             error "No se ha agregado el archivo de versión"
+        } else {
+            println "Validación de existencia de archivo version.txt correcta"
         }
 }
 
 def validatePort() {
     def port = readFile "src/main/resources/application.properties"
     def number = port.split('=').toList()
-    return number[1]
+    prinln "Puerto N°: ${number[1]}"
 }
 
 return this
