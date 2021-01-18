@@ -1,4 +1,5 @@
 package pipeline.test
+import java.util.regex.Pattern
 
 def getValidatedStages(String type,String chosenStages, String pipelineJob) {
      def stages = []
@@ -47,7 +48,7 @@ return usedStages
 }
 
 def validateReleaseBranchName(releaseBranchName){
-	assert (~"release-v\\d+\\-\\d+\\-\\d+" == releaseBranchName)
+	assert ("/release-v\d+\.\d+\.\d+/") == releaseBranchName
 }
 
 def validateFiles(choice) {
