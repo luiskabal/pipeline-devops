@@ -49,6 +49,7 @@ def gitMergeMaster(){
     println('*************** gitMergeMaster')
     def version = bat (script:"@type version.txt", returnStdout: true).trim()
     bat "git switch main"
+    bat "git pull"
     bat "git add --ignore-errors ."
     bat "git stash"
     bat "git merge origin/release-"+version
