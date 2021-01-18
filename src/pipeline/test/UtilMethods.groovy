@@ -96,7 +96,7 @@ def validateVersionFile() {
 def validatePort() {
     def port = readFile "src/main/resources/application.properties"
     def number = port.split('=').toList()
-    prinln "Puerto N°: ${number[1]}"
+    println "Puerto N°: ${number[1]}"
 }
 
 return this

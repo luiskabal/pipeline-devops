@@ -14,6 +14,19 @@ def call(String type, String chosenStages, String jobName){
     stages.each{
         stage(it){
             try {
+                //Validar tipo de app
+                utils.validateKindApp(env.GIT_URL)
+                //Validar archivos según herramienta
+                utils.validateFiles(params.CHOICE)
+                //Validar que exista archivo de versión
+                utils.validateVersionFile()
+                //Validar puerto (retornar número)
+                utils.validatePort()
+                //Validar nombre rama release
+                def version = readFile "version.txt"
+                def releaseBranchName = "release-${version}"
+                utils.validateReleaseBranchName(releaseBranchName)
+
                 "${it}"()
             }
             catch (e) {

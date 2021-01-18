@@ -23,7 +23,6 @@ def call(String type, String chosenStages, String jobName){
                 //Validar nombre rama release
                 def version = readFile "version.txt"
                 def releaseBranchName = "release-${version}"
-                println("${releaseBranchName}")
                 utils.validateReleaseBranchName(releaseBranchName)
 
                 
