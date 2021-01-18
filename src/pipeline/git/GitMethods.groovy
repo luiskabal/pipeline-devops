@@ -70,9 +70,11 @@ def gitMergeDevelop(){
 def gitTagMaster(){
 	def version = bat (script:"@type version.txt", returnStdout: true).trim()
     bat "git switch main"
-    if(checkIfTagDoesntExists()){
+    if(checkIfTagDoesntExist()){
 		bat "git tag "+version
-		println('*************** tag '+version +' exists')
+		println('*************** tag '+version +' doesnt exists')
+    }else{
+    	println('*************** tag '+version +' exists')
     }
     
     bat "git push origin --tags"
