@@ -4,11 +4,10 @@ def call() {
         environment { 
             USER_NAME = 'Luis Varas Quinteros'
             GROUP = 'Grupo4'
-            STAGE_NAME=""
         }
         parameters {
-            choice(name:'CHOICE', choices:['gradle','maven'], description: 'Eleccion de herramienta de construccion, buildAndTest')
-            string(name:'stages', defaultValue:'', description:'Elija')
+            choice(name:'CHOICE', choices:['gradle','maven'], description: 'Eleccion de herramienta de construccion')
+            string(name:'stages', defaultValue:'', description:'Ingrese las stages que desee utilizar en el pipeline')
         }
         stages {
             stage('Pipeline') {
@@ -34,7 +33,7 @@ def call() {
             success {
                 slackSend channel: 'U01DK543PKN', 
                 color: 'good', 
-                message: "[${GROUP}] [${JOB_NAME}] [${params.CHOICE}] [${STAGE_NAME}]Ejecución exitosa", 
+                message: "[${GROUP}] [${JOB_NAME}] [${params.CHOICE}] [${STAGE_NAME}]Ejecucion exitosa", 
                 teamDomain: 'dipdevopsusach2020', 
                 tokenCredentialId: 'slack-Token'
             }
