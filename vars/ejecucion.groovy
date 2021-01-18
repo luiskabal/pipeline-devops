@@ -4,7 +4,6 @@ def call() {
         environment { 
             USER_NAME = 'Luis Varas Quinteros'
             GROUP = 'Grupo4'
-            NombreStage='stage'
         }
         parameters {
             choice(name:'CHOICE', choices:['gradle','maven'], description: 'Eleccion de herramienta de construccion')
@@ -34,14 +33,14 @@ def call() {
             success {
                 slackSend channel: 'U01DK543PKN', 
                 color: 'good', 
-                message: "[${GROUP}] [${JOB_NAME}] [${params.CHOICE}] [${NombreStage}]Ejecucion exitosa", 
+                message: "[${GROUP}] [${JOB_NAME}] [${params.CHOICE}] "+env.NombreStage+" Ejecucion exitosa", 
                 teamDomain: 'dipdevopsusach2020', 
                 tokenCredentialId: 'slack-Token'
             }
             failure {
                 slackSend channel: 'U01DK543PKN', 
                 color: 'danger', 
-                message: "ERROR EN ${NombreStage}", 
+                message: "ERROR EN "+env.NombreStage, 
                 teamDomain: 'dipdevopsusach2020', 
                 tokenCredentialId: 'slack-Token'
             }

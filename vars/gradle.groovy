@@ -24,7 +24,7 @@ def call(String type, String chosenStages, String jobName){
 
 def buildAndTest() {
     env.NombreStage='buildAndTest'
-   
+  
 }
 
 def sonar() {
