@@ -90,7 +90,7 @@ def createBranch(releaseBranchName,currentBranch){
 	git push origin ''' +releaseBranchName
 }
 
-def checkIfTagDoesntExists() {
+def checkIfTagDoesntExist() {
  	def version = bat (script:"@type version.txt", returnStdout: true).trim()
  	def output = bat (script:"@git tag -l "+version, returnStdout: true)
  	return output.isEmpty()
