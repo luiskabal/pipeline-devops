@@ -70,7 +70,11 @@ def gitMergeDevelop(){
 def gitTagMaster(){
 	def version = bat (script:"@type version.txt", returnStdout: true).trim()
     bat "git switch main"
-    bat "git tag "+version
+    if(checkIfTagDoesntExists()){
+		bat "git tag "+version
+		println('*************** tag '+version +' exists')
+    }
+    
     bat "git push origin --tags"
     println('*************** gitTagMaster')
     
@@ -86,5 +90,10 @@ def createBranch(releaseBranchName,currentBranch){
 	git push origin ''' +releaseBranchName
 }
 
+def checkIfTagDoesntExists() {
+ 	def version = bat (script:"@type version.txt", returnStdout: true).trim()
+ 	def output = bat (script:"@git tag -l "+version, returnStdout: true)
+ 	return output.isEmpty()
+}
 
 return this;
