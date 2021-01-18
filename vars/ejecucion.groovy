@@ -2,8 +2,8 @@ def call() {
     pipeline {
         agent any
         environment { 
-            USER_NAME = 'Luis Varas Quinteros',
-            GROUP = 'Grupo4',
+            USER_NAME = 'Luis Varas Quinteros'
+            GROUP = 'Grupo4'
             STAGE_NAME=""
         }
         parameters {
