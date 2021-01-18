@@ -23,7 +23,7 @@ def call(String type, String chosenStages, String jobName){
 }
 
 def buildAndTest() {
-    env.STAGE_NAME="buildAndTest"
+    env.NombreStage="buildAndTest"
     figlet "buildAndTest"
     bat './gradlew clean build'
     println(" Ejecutado buildAndTest")
@@ -31,7 +31,7 @@ def buildAndTest() {
 
 def sonar() {
     figlet "sonar"
-    env.STAGE_NAME="sonar"
+    env.NombreStage="sonar"
     def scannerHome = tool 'sonar';
     withSonarQubeEnv('sonar') {
         bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle2 -Dsonar.java.binaries=build"
@@ -42,7 +42,7 @@ def sonar() {
 
 def runJar() {
     figlet "runJar"
-     env.STAGE_NAME="runJar"
+     env.NombreStage="runJar"
     bat 'start gradlew bootRun'
     sleep 15
     println(" Ejecutado runJar")
@@ -51,7 +51,7 @@ def runJar() {
 
 def downloadNexus(){
     figlet "downloadNexus"
-    env.STAGE_NAME="downloadNexus"
+    env.NombreStage="downloadNexus"
     bat 'curl -X GET -u admin:Mortal2112 http://localhost:8081/repository/test-nexus/com/devopsusach2020/DevOpsUsach2020/0.0.1-develop/DevOpsUsach2020-0.0.1-develop.jar -O'
     println(" Ejecutado downloadNexus")    
     sleep 10
@@ -59,7 +59,7 @@ def downloadNexus(){
 
 def runDownload() {
     figlet 'runDownloadedJar'
-    env.STAGE_NAME="runDownloadedJar"
+    env.NombreStage="runDownloadedJar"
     bat "start gradlew bootRun &"
     println(" Ejecutado runDownload")    
     sleep 7
@@ -67,13 +67,13 @@ def runDownload() {
 
 def rest() {
     figlet "rest"
-    env.STAGE_NAME="rest"
+    env.NombreStage="rest"
     bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
     println(" Ejecutado rest")
 }
 
 def createRelease(){
-    env.STAGE_NAME="createRelease"
+    env.NombreStage="createRelease"
 
     def git = new pipeline.git.GitMethods();
     def currentBranch=env.GIT_BRANCH;
@@ -93,38 +93,38 @@ def createRelease(){
     println(" Ejecutado createRelease")
 }
 
-def gitDiff(){
-    env.STAGE_NAME="gitDiff"
-    def git = new pipeline.git.GitMethods();
-    git.gitDiff();
-}
+    def gitDiff(){
+        env.NombreStage="gitDiff"
+        def git = new pipeline.git.GitMethods();
+        git.gitDiff();
+    }
 
-def gitMergeMaster(){
-    env.STAGE_NAME="gitMergeMaster"
-    def git = new pipeline.git.GitMethods();
-    git.gitMergeMaster();
+    def gitMergeMaster(){
+        env.NombreStage="gitMergeMaster"
+        def git = new pipeline.git.GitMethods();
+        git.gitMergeMaster();
 
-}
+    }
 
-def gitMergeDevelop(){
-    env.STAGE_NAME="gitMergeDevelop"    
-    def git = new pipeline.git.GitMethods();
-    git.gitMergeDevelop();
+    def gitMergeDevelop(){
+        env.NombreStage="gitMergeDevelop"    
+        def git = new pipeline.git.GitMethods();
+        git.gitMergeDevelop();
 
-}
+    }
 
-def gitTagMaster(){
-    env.STAGE_NAME="gitTagMaster"    
+    def gitTagMaster(){
+        env.NombreStage="gitTagMaster"    
 
-    def git = new pipeline.git.GitMethods();
-    git.gitTagMaster();
+        def git = new pipeline.git.GitMethods();
+        git.gitTagMaster();
 
-}
+    }
 
 
 def nexusCI() {
     figlet "nexusCI"
-    env.STAGE_NAME="nexusCI"    
+    env.NombreStage="nexusCI"    
 
     def jobName = JOB_NAME.replaceAll("/","_")
     def branch = GIT_BRANCH
@@ -147,27 +147,27 @@ def nexusCI() {
    println(" Ejecutado nexusCI")
 }
 
-def nexusCD() {
-figlet "nexusCD"
-env.STAGE_NAME="nexusCD"
-def jobName=JOB_NAME.replaceAll("/","_")
-def branchName=GIT_BRANCH.replaceAll("origin/","")
+    def nexusCD() {
+    figlet "nexusCD"
+    env.NombreStage="nexusCD"
+    def jobName=JOB_NAME.replaceAll("/","_")
+    def branchName=GIT_BRANCH.replaceAll("origin/","")
 
-    nexusArtifactUploader(
-        nexusVersion: 'nexus3',
-        protocol: 'http',
-        nexusUrl: 'localhost:8081',
-        groupId: 'com.devopsusach2020',
-        version: '0.0.1-'+branchName,
-        repository: 'test-nexus',
-        credentialsId: 'nexus',
-        artifacts: [
-        [artifactId: 'DevOpsUsach2020',
-        classifier: '',
-        file: 'C:/Users/luisv/.jenkins/workspace/ci-cd/pipeline-cd/DevOpsUsach2020-0.0.1-develop.jar',
-        type: 'jar']
-        ]
-        )
-    println(" Ejecutado nexusCD")
-}
+        nexusArtifactUploader(
+            nexusVersion: 'nexus3',
+            protocol: 'http',
+            nexusUrl: 'localhost:8081',
+            groupId: 'com.devopsusach2020',
+            version: '0.0.1-'+branchName,
+            repository: 'test-nexus',
+            credentialsId: 'nexus',
+            artifacts: [
+            [artifactId: 'DevOpsUsach2020',
+            classifier: '',
+            file: 'C:/Users/luisv/.jenkins/workspace/ci-cd/pipeline-cd/DevOpsUsach2020-0.0.1-develop.jar',
+            type: 'jar']
+            ]
+            )
+        println(" Ejecutado nexusCD")
+    }
 return this;
