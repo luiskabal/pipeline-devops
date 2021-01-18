@@ -23,13 +23,15 @@ def call(String type, String chosenStages, String jobName){
 }
 
 def buildAndTest() {
+    env.STAGE_NAME="buildAndTest"
     figlet "buildAndTest"
     bat './gradlew clean build'
     println(" Ejecutado buildAndTest")
 }
 
 def sonar() {
-        figlet "sonar"
+    figlet "sonar"
+    env.STAGE_NAME="sonar"
     def scannerHome = tool 'sonar';
     withSonarQubeEnv('sonar') {
         bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle2 -Dsonar.java.binaries=build"
@@ -39,7 +41,8 @@ def sonar() {
 }
 
 def runJar() {
-      figlet "runJar"
+    figlet "runJar"
+     env.STAGE_NAME="runJar"
     bat 'start gradlew bootRun'
     sleep 15
     println(" Ejecutado runJar")
@@ -48,6 +51,7 @@ def runJar() {
 
 def downloadNexus(){
     figlet "downloadNexus"
+    env.STAGE_NAME="downloadNexus"
     bat 'curl -X GET -u admin:Mortal2112 http://localhost:8081/repository/test-nexus/com/devopsusach2020/DevOpsUsach2020/0.0.1-develop/DevOpsUsach2020-0.0.1-develop.jar -O'
     println(" Ejecutado downloadNexus")    
     sleep 10
@@ -55,6 +59,7 @@ def downloadNexus(){
 
 def runDownload() {
     figlet 'runDownloadedJar'
+    env.STAGE_NAME="runDownloadedJar"
     bat "start gradlew bootRun &"
     println(" Ejecutado runDownload")    
     sleep 7
@@ -62,11 +67,14 @@ def runDownload() {
 
 def rest() {
     figlet "rest"
+    env.STAGE_NAME="rest"
     bat "curl -X GET http://localhost:8082/rest/mscovid/test?msg=testing"
     println(" Ejecutado rest")
 }
 
 def createRelease(){
+    env.STAGE_NAME="createRelease"
+
     def git = new pipeline.git.GitMethods();
     def currentBranch=env.GIT_BRANCH;
     def releaseBranchName= 'release-'+git.getVersion()
@@ -86,23 +94,28 @@ def createRelease(){
 }
 
 def gitDiff(){
+    env.STAGE_NAME="gitDiff"
     def git = new pipeline.git.GitMethods();
     git.gitDiff();
 }
 
 def gitMergeMaster(){
+    env.STAGE_NAME="gitMergeMaster"
     def git = new pipeline.git.GitMethods();
     git.gitMergeMaster();
 
 }
 
 def gitMergeDevelop(){
+    env.STAGE_NAME="gitMergeDevelop"    
     def git = new pipeline.git.GitMethods();
     git.gitMergeDevelop();
 
 }
 
 def gitTagMaster(){
+    env.STAGE_NAME="gitTagMaster"    
+
     def git = new pipeline.git.GitMethods();
     git.gitTagMaster();
 
@@ -111,6 +124,8 @@ def gitTagMaster(){
 
 def nexusCI() {
     figlet "nexusCI"
+    env.STAGE_NAME="nexusCI"    
+
     def jobName = JOB_NAME.replaceAll("/","_")
     def branch = GIT_BRANCH
     def workspace = WORKSPACE
@@ -134,6 +149,7 @@ def nexusCI() {
 
 def nexusCD() {
 figlet "nexusCD"
+env.STAGE_NAME="nexusCD"
 def jobName=JOB_NAME.replaceAll("/","_")
 def branchName=GIT_BRANCH.replaceAll("origin/","")
 

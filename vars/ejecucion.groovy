@@ -2,7 +2,9 @@ def call() {
     pipeline {
         agent any
         environment { 
-            USER_NAME = 'Luis Varas Quinteros'
+            USER_NAME = 'Luis Varas Quinteros',
+            GROUP = 'Grupo4',
+            STAGE_NAME=""
         }
         parameters {
             choice(name:'CHOICE', choices:['gradle','maven'], description: 'Eleccion de herramienta de construccion, buildAndTest')
@@ -26,13 +28,13 @@ def call() {
                 }
             }
         }
-        /*
+        
         post {
             
             success {
                 slackSend channel: 'U01E2R4SXRN', 
                 color: 'good', 
-                message: "[${USER_NAME}] [${JOB_NAME}] [${params.CHOICE}] Ejecución exitosa", 
+                message: "[${GROUP}] [${JOB_NAME}] [${params.CHOICE}] [${STAGE_NAME}]Ejecución exitosa", 
                 teamDomain: 'dipdevopsusach2020', 
                 tokenCredentialId: 'slack-token'
             }
@@ -44,7 +46,7 @@ def call() {
                 tokenCredentialId: 'slack-token'
             }
         }
-        */
+        
     }
 }
 
