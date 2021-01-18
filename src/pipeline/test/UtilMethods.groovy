@@ -54,13 +54,13 @@ def validateFiles(choice) {
     if (choice == 'gradle') {
         def exists = fileExists('build.gradle')
         if (!exists) {
-            return error "Se intenta ejecutar bajo Gradle pero el directorio no tiene archivos correspondientes"
+            error "Se intenta ejecutar bajo Gradle pero el directorio no tiene archivos correspondientes"
         }
     }
     else if (choice == 'maven') {
         def exists = fileExists('pom.xml')
         if (!exists) {
-            return error "Se intenta ejecutar bajo Maven pero el directorio no tiene archivos correspondientes"
+            error "Se intenta ejecutar bajo Maven pero el directorio no tiene archivos correspondientes"
         }
     }
 }
@@ -75,7 +75,7 @@ def validateKindApp(git_url) {
 def validateVersionFile() {
     def exists = fileExists('version.txt')
         if (!exists) {
-            return error "No se ha agregado el archivo de versión"
+            error "No se ha agregado el archivo de versión"
         }
 }
 
