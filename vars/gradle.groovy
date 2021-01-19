@@ -31,10 +31,11 @@ def buildAndTest() {
 
 def sonar() {
     figlet "sonar"
+    def currentBranch=env.GIT_BRANCH;
     env.NombreStage="sonar"
     def scannerHome = tool 'sonar';
     withSonarQubeEnv('sonar') {
-        bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=ejemplo-gradle2 -Dsonar.java.binaries=build"
+        bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey="+currentBranch+" -Dsonar.java.binaries=build"
     }
     println(" Ejecutado sonar")
 
