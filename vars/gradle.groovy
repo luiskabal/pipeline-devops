@@ -28,8 +28,7 @@ def buildAndTest() {
     bat './gradlew clean build'
     println(" Ejecutado buildAndTest"+ env.NombreStage)
 }
-
-def sonar() {
+/*def sonar() {
     figlet "sonar"
     def currentBranch=env.GIT_BRANCH;
     env.NombreStage="sonar"
@@ -170,5 +169,6 @@ def nexusCI() {
             ]
             )
         println(" Ejecutado nexusCD")
-    }
+    }*/
+
 return this;
