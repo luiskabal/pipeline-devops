@@ -28,11 +28,11 @@ def compile(){
      figlet "compile"
 bat './mvnw.cmd clean compile -e'
 }
+/*
 def unitTest(){
     figlet "unitTest"
    bat './mvnw.cmd clean test -e' 
-}
-def Jar(){
+}def Jar(){
         figlet "Jar"
    bat './mvnw.cmd clean package -e' 
 }
@@ -108,6 +108,7 @@ def nexusCI() {
         println(" Ejecutado")
     
 
-}
+}*/
+
 
 return this;
