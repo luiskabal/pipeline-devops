@@ -1,12 +1,14 @@
 def call() {
     pipeline {
-        agent any
+       // agent any
+        agent { dockerfile true }
         environment { 
             USER_NAME = 'Luis Varas Quinteros'
             GROUP = 'Grupo4'
         }
         parameters {
-            choice(name:'CHOICE', choices:['gradle','maven'], description: 'Eleccion de herramienta de construccion')
+            //choice(name:'CHOICE', choices:['gradle','maven'], description: 'Eleccion de herramienta de construccion')
+            choice(name:'CHOICE', choices:['maven'], description: 'Eleccion de herramienta de construccion')
             string(name:'stages', defaultValue:'', description:'Ingrese las stages que desee utilizar en el pipeline')
         }
         stages {

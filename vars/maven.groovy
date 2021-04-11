@@ -32,6 +32,22 @@ def jar(){
         figlet "Jar"
    bat './mvnw.cmd clean package -e' 
 }
+def dockerBuild(){
+        figlet "dockerBuild"
+   bat 'docker build -t "devops" .' 
+}
+def dockerRun(){
+        figlet "dockerRun"
+   bat 'docker run --name devops -p 8082:8082 devops:latest' 
+}
+def dockerImagesList(){
+        figlet "dockerImagesList"
+   bat 'docker images' 
+}
+def dockerRunningList(){
+        figlet "dockerRunningList"
+   bat 'docker ps –a' 
+}
 /*
 def unitTest(){
     figlet "unitTest"
