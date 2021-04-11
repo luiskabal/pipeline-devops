@@ -27,8 +27,7 @@ def call() {
                 }
             }
         }
-        
-        post {
+        /*   post {
             
             success {
                 slackSend channel: 'U01DK543PKN', 
@@ -44,7 +43,8 @@ def call() {
                 teamDomain: 'dipdevopsusach2020', 
                 tokenCredentialId: 'slack-Token'
             }
-        }
+        }*/
+     
         
     }
 }
