@@ -32,6 +32,10 @@ def jar(){
         figlet "Jar"
    bat './mvnw.cmd clean package -e' 
 }
+def dockerImage(){
+    dockerImage = docker.build imagename
+
+}
 def dockerBuild(){
         figlet "dockerBuild"
    bat 'docker build -t "devops" .' 

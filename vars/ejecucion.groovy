@@ -1,10 +1,12 @@
 def call() {
     pipeline {
-       // agent any
-        agent { dockerfile true }
+       agent any
+        // agent { dockerfile true }
         environment { 
             USER_NAME = 'Luis Varas Quinteros'
             GROUP = 'Grupo4'
+            dockerImage = ''
+            imagename = "devops/2021/diplomado/usach"
         }
         parameters {
             //choice(name:'CHOICE', choices:['gradle','maven'], description: 'Eleccion de herramienta de construccion')

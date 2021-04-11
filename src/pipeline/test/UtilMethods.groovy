@@ -36,7 +36,8 @@ def usedPipeline(type,pipelineJob){
         figlet 'CI';
        // usedStages = type.contains('maven')?['compile','unitTest','Jar','Sonar','nexusCI']:['buildAndTest','sonar','runJar','rest','nexusCI']
          usedStages = type.contains('maven')?
-         ['compile','jar','dockerBuild','dockerRun','dockerImagesList','dockerRunningList']:
+         //['compile','jar','dockerBuild','dockerRun','dockerImagesList','dockerRunningList']:
+         ['compile','jar','dockerImage']:
          ['buildAndTest','sonar','runJar','rest','nexusCI']
         
         if(pipelineJob.contains("develop")){
