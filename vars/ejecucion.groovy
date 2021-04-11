@@ -29,21 +29,26 @@ def call() {
         }
        
         post {
-             /*success {
-                slackSend channel: 'U01DK543PKN', 
+            
+            success {
+                  figlet "success"
+                 /*slackSend channel: 'U01DK543PKN', 
                 color: 'good', 
                 message: "[${GROUP}] [${JOB_NAME}] [${params.CHOICE}] ["+env.NombreStage+"] Ejecucion exitosa", 
                 teamDomain: 'dipdevopsusach2020', 
-                tokenCredentialId: 'slack-Token'
+                tokenCredentialId: 'slack-Token'*/
+                
             }
             failure {
-                slackSend channel: 'U01DK543PKN', 
+
+                   figlet "failure"
+                /*   slackSend channel: 'U01DK543PKN', 
                 color: 'danger', 
                 message: "ERROR EN ["+env.NombreStage+"]", 
                 teamDomain: 'dipdevopsusach2020', 
-                tokenCredentialId: 'slack-Token'
-            }*/
-            
+                tokenCredentialId: 'slack-Token'*/
+             
+            }
         }
         
     }
